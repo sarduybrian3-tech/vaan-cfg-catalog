@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 100%);
             color: #fff;
             min-height: 100vh;
             padding: 20px;
@@ -28,31 +28,31 @@
             text-align: center;
             margin-bottom: 40px;
             padding: 30px 0;
-            border-bottom: 3px solid #00ff88;
-            background: linear-gradient(180deg, rgba(0, 255, 136, 0.05) 0%, transparent 100%);
+            border-bottom: 3px solid #7c3aed;
+            background: linear-gradient(180deg, rgba(124, 58, 237, 0.08) 0%, transparent 100%);
             border-radius: 10px;
         }
 
         .header-brand {
             font-size: 0.85em;
-            color: #00ffff;
+            color: #60a5fa;
             letter-spacing: 3px;
             margin-bottom: 15px;
             font-weight: bold;
             text-transform: uppercase;
-            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+            text-shadow: 0 0 10px rgba(96, 165, 250, 0.4);
         }
 
         h1 {
             font-size: 2.5em;
             margin-bottom: 10px;
-            color: #00ff88;
-            text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+            color: #a78bfa;
+            text-shadow: 0 0 20px rgba(167, 139, 250, 0.4);
         }
 
         .header-subtitle {
             font-size: 1.1em;
-            color: #00ff88;
+            color: #7c3aed;
             margin-top: 5px;
             font-weight: 300;
             letter-spacing: 1px;
@@ -67,14 +67,14 @@
         }
 
         .stat-box {
-            background: rgba(0, 255, 136, 0.1);
+            background: rgba(124, 58, 237, 0.1);
             padding: 15px 30px;
             border-radius: 8px;
-            border: 2px solid #00ff88;
+            border: 2px solid #7c3aed;
         }
 
         .stat-box h3 {
-            color: #00ff88;
+            color: #a78bfa;
             font-size: 0.9em;
             margin-bottom: 5px;
         }
@@ -82,6 +82,7 @@
         .stat-box p {
             font-size: 1.8em;
             font-weight: bold;
+            color: #60a5fa;
         }
 
         .controls {
@@ -100,27 +101,28 @@
         .search-box input {
             width: 100%;
             padding: 12px 20px;
-            border: 2px solid #00ff88;
-            background: rgba(0, 255, 136, 0.1);
+            border: 2px solid #7c3aed;
+            background: rgba(124, 58, 237, 0.08);
             color: #fff;
             border-radius: 5px;
             font-size: 1em;
         }
 
         .search-box input::placeholder {
-            color: rgba(255, 255, 255, 0.5);
+            color: rgba(255, 255, 255, 0.4);
         }
 
         .search-box input:focus {
             outline: none;
-            box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+            box-shadow: 0 0 20px rgba(124, 58, 237, 0.4);
+            border-color: #60a5fa;
         }
 
         .filter-btn {
             padding: 12px 25px;
-            border: 2px solid #00ff88;
+            border: 2px solid #7c3aed;
             background: transparent;
-            color: #00ff88;
+            color: #a78bfa;
             border-radius: 5px;
             cursor: pointer;
             font-size: 1em;
@@ -129,14 +131,16 @@
         }
 
         .filter-btn:hover {
-            background: #00ff88;
-            color: #1a1a2e;
+            background: #7c3aed;
+            color: #fff;
             transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(124, 58, 237, 0.4);
         }
 
         .filter-btn.active {
-            background: #00ff88;
-            color: #1a1a2e;
+            background: #7c3aed;
+            color: #fff;
+            box-shadow: 0 0 15px rgba(124, 58, 237, 0.4);
         }
 
         .games-grid {
@@ -148,7 +152,7 @@
 
         .game-card {
             background: #16213e;
-            border: 2px solid #00ff88;
+            border: 2px solid #7c3aed;
             border-radius: 8px;
             overflow: hidden;
             cursor: pointer;
@@ -160,14 +164,14 @@
 
         .game-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.4);
-            border-color: #00ffff;
+            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.3), 0 0 20px rgba(96, 165, 250, 0.2);
+            border-color: #60a5fa;
         }
 
         .game-image {
             width: 100%;
             height: 200px;
-            background: #0f3460;
+            background: #0f1f3a;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -195,7 +199,7 @@
         .game-title {
             font-size: 0.85em;
             font-weight: bold;
-            color: #00ff88;
+            color: #a78bfa;
             margin-bottom: 5px;
             line-height: 1.2;
             min-height: 35px;
@@ -208,13 +212,13 @@
         }
 
         .game-genre {
-            color: #00ffff;
+            color: #60a5fa;
             font-weight: bold;
             margin-bottom: 3px;
         }
 
         .game-size {
-            color: #ff9500;
+            color: #a78bfa;
         }
 
         .no-results {
@@ -227,9 +231,13 @@
         footer {
             text-align: center;
             padding: 30px;
-            border-top: 2px solid #00ff88;
+            border-top: 2px solid #7c3aed;
             margin-top: 40px;
             color: #888;
+        }
+
+        footer strong {
+            color: #a78bfa;
         }
 
         @media (max-width: 768px) {
@@ -658,7 +666,6 @@
 
             let filteredGames = games;
 
-            // Aplicar búsqueda
             if (searchTerm) {
                 filteredGames = filteredGames.filter(g => 
                     g.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -676,11 +683,11 @@
             filteredGames.forEach(game => {
                 const card = document.createElement('div');
                 card.className = 'game-card';
-                const imageUrl = gameCovers[game.nombre] || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="150" height="200"%3E%3Crect fill="%230f3460" width="150" height="200"/%3E%3Ctext x="50%" y="50%" text-anchor="middle" dy=".3em" fill="%2300ff88" font-size="12"%3E' + game.nombre.substring(0, 15) + '%3C/text%3E%3C/svg%3E';
+                const imageUrl = gameCovers[game.nombre] || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="150" height="200"%3E%3Crect fill="%230f1f3a" width="150" height="200"/%3E%3Ctext x="50%" y="50%" text-anchor="middle" dy=".3em" fill="%23a78bfa" font-size="12"%3E' + game.nombre.substring(0, 15) + '%3C/text%3E%3C/svg%3E';
                 
                 card.innerHTML = `
                     <div class="game-image">
-                        <img src="${imageUrl}" alt="${game.nombre}" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22150%22 height=%22200%22%3E%3Crect fill=%22%230f3460%22 width=%22150%22 height=%22200%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22%2300ff88%22 font-size=%2212%22%3E${game.nombre.substring(0, 15)}%3C/text%3E%3C/svg%3E'">
+                        <img src="${imageUrl}" alt="${game.nombre}" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22150%22 height=%22200%22%3E%3Crect fill=%22%230f1f3a%22 width=%22150%22 height=%22200%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22%23a78bfa%22 font-size=%2212%22%3E${game.nombre.substring(0, 15)}%3C/text%3E%3C/svg%3E'">
                     </div>
                     <div class="game-info">
                         <div class="game-title">${game.nombre}</div>
@@ -701,13 +708,11 @@
             document.getElementById('total-games').textContent = total;
         }
 
-        // Event listeners
         document.getElementById('search-input').addEventListener('input', (e) => {
             searchTerm = e.target.value;
             renderGames();
         });
 
-        // Render inicial
         renderGames();
     </script>
 </body>
