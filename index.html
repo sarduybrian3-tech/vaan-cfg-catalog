@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Catálogo de Juegos PS5</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 0;
+            border-bottom: 3px solid #00ff88;
+            background: linear-gradient(180deg, rgba(0, 255, 136, 0.05) 0%, transparent 100%);
+            border-radius: 10px;
+        }
+
+        .header-brand {
+            font-size: 0.85em;
+            color: #00ffff;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: #00ff88;
+            text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+        }
+
+        .header-subtitle {
+            font-size: 1.1em;
+            color: #00ff88;
+            margin-top: 5px;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stat-box {
+            background: rgba(0, 255, 136, 0.1);
+            padding: 15px 30px;
+            border-radius: 8px;
+            border: 2px solid #00ff88;
+        }
+
+        .stat-box h3 {
+            color: #00ff88;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+
+        .stat-box p {
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 12px 25px;
+            border: 2px solid #00ff88;
+            background: transparent;
+            color: #00ff88;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .filter-btn:hover {
+            background: #00ff88;
+            color: #1a1a2e;
+            transform: scale(1.05);
+        }
+
+        .filter-btn.active {
+            background: #00ff88;
+            color: #1a1a2e;
+        }
+
+        .search-box {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-box input {
+            width: 100%;
+            max-width: 400px;
+            padding: 12px 20px;
+            border: 2px solid #00ff88;
+            background: rgba(0, 255, 136, 0.1);
+            color: #fff;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .search-box input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .search-box input:focus {
+            outline: none;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .game-card {
+            background: #16213e;
+            border: 2px solid #00ff88;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
+            border-color: #00ffff;
+        }
+
+        .game-card.faltante {
+            opacity: 0.8;
+        }
+
+        .game-card.faltante:hover {
+            opacity: 1;
+        }
+
+        .game-image {
+            width: 100%;
+            height: 240px;
+            background: #0f3460;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9em;
+            text-align: center;
+            padding: 10px;
+            color: #00ff88;
+            font-weight: bold;
+        }
+
+        .game-info {
+            padding: 15px;
+        }
+
+        .game-title {
+            font-size: 0.95em;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #00ff88;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+        }
+
+        .game-details {
+            font-size: 0.8em;
+            color: #bbb;
+            margin-bottom: 8px;
+        }
+
+        .game-genre {
+            color: #00ffff;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .game-size {
+            color: #ff9500;
+            margin-bottom: 10px;
+        }
+
+        .game-status {
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .status-poseido {
+            background: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+            border: 1px solid #00ff88;
+        }
+
+        .status-faltante {
+            background: rgba(255, 150, 0, 0.2);
+            color: #ff9500;
+            border: 1px solid #ff9500;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #bbb;
+            font-size: 1.2em;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            border-top: 2px solid #00ff88;
+            margin-top: 40px;
+            color: #888;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .games-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 15px;
+            }
+
+            .stats {
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-brand">⚙️ VAAN-CFG</div>
+            <h1>🎮 MI CATÁLOGO DE JUEGOS PS5</h1>
+            <div class="header-subtitle">Powered by Vaan-CFG Gaming Catalog</div>
+            <div class="stats">
+                <div class="stat-box">
+                    <h3>Total de Juegos</h3>
+                    <p id="total-games">0</p>
+                </div>
+                <div class="stat-box">
+                    <h3>Poseídos</h3>
+                    <p id="owned-games">0</p>
+                </div>
+                <div class="stat-box">
+                    <h3>Faltantes</h3>
+                    <p id="missing-games">0</p>
+                </div>
+            </div>
+        </header>
+
+        <div class="search-box">
+            <input type="text" id="search-input" placeholder="Busca un juego...">
+        </div>
+
+        <div class="filters">
+            <button class="filter-btn active" data-filter="todos">Todos</button>
+            <button class="filter-btn" data-filter="poseido">Poseídos</button>
+            <button class="filter-btn" data-filter="faltante">Faltantes</button>
+        </div>
+
+        <div class="games-grid" id="games-grid">
+            <!-- Los juegos se cargarán aquí -->
+        </div>
+
+        <div id="no-results" class="no-results" style="display: none;">
+            No se encontraron juegos con esos criterios.
+        </div>
+
+        <footer>
+            <p>🏢 <strong>Taller Vaan-CFG</strong> | Catálogo creado con ❤️ | Última actualización: Junio 2026</p>
+        </footer>
+    </div>
+
+    <script>
+        // Base de datos de juegos
+        const games = [
+            // POSEÍDOS
+            { nombre: "41 Hours", genero: "Aventura", peso: "15 GB", estado: "poseido" },
+            { nombre: "A Plague Tale Requiem", genero: "Aventura", peso: "45 GB", estado: "poseido" },
+            { nombre: "Ad Infinitum", genero: "Horror", peso: "25 GB", estado: "poseido" },
+            { nombre: "AEW Fight Forever", genero: "Lucha", peso: "35 GB", estado: "poseido" },
+            { nombre: "Alan Wake Remastered", genero: "Acción/Horror", peso: "90 GB", estado: "poseido" },
+            { nombre: "Aliens Dark Descent", genero: "Acción", peso: "40 GB", estado: "poseido" },
+            { nombre: "Aliens Fireteam Elite", genero: "Acción", peso: "50 GB", estado: "poseido" },
+            { nombre: "Alone in the Dark", genero: "Horror", peso: "55 GB", estado: "poseido" },
+            { nombre: "Apsulov End of Gods", genero: "Acción/Horror", peso: "30 GB", estado: "poseido" },
+            { nombre: "Aragami 2", genero: "Acción", peso: "25 GB", estado: "poseido" },
+            { nombre: "ARK Survival Ascended", genero: "Supervivencia", peso: "120 GB", estado: "poseido" },
+            { nombre: "Assetto Corsa Competizione", genero: "Carreras", peso: "80 GB", estado: "poseido" },
+            { nombre: "Asterigos Curse of the Stars", genero: "RPG", peso: "35 GB", estado: "poseido" },
+            { nombre: "Astria Ascending", genero: "RPG", peso: "20 GB", estado: "poseido" },
+            { nombre: "Astro Bot", genero: "Plataformas", peso: "40 GB", estado: "poseido" },
+            { nombre: "Avatar Frontiers of Pandora", genero: "Acción/Aventura", peso: "100 GB", estado: "poseido" },
+            { nombre: "Avatar The Last Airbender", genero: "Acción", peso: "30 GB", estado: "poseido" },
+            { nombre: "Away", genero: "Aventura", peso: "20 GB", estado: "poseido" },
+            { nombre: "Balan Wonderworld", genero: "Plataformas", peso: "25 GB", estado: "poseido" },
+            { nombre: "Baldur's Gate 3", genero: "RPG", peso: "150 GB", estado: "poseido" },
+            { nombre: "Banishers Ghosts of New Eden", genero: "Acción/Aventura", peso: "60 GB", estado: "poseido" },
+            { nombre: "Beyond a Steel Sky", genero: "Aventura", peso: "15 GB", estado: "poseido" },
+            { nombre: "Black Myth Wukong", genero: "Acción RPG", peso: "118 GB", estado: "poseido" },
+            { nombre: "BlackWind", genero: "Acción", peso: "20 GB", estado: "poseido" },
+            { nombre: "Blasphemous II", genero: "Acción", peso: "30 GB", estado: "poseido" },
+            { nombre: "Bleak Faith Forsaken", genero: "RPG", peso: "35 GB", estado: "poseido" },
+            { nombre: "Blood Bowl III", genero: "Deportes", peso: "45 GB", estado: "poseido" },
+            { nombre: "BloodRayne Betrayal", genero: "Acción", peso: "15 GB", estado: "poseido" },
+            { nombre: "Borderlands 3", genero: "Acción/RPG", peso: "95 GB", estado: "poseido" },
+            { nombre: "Call of the Sea", genero: "Aventura", peso: "15 GB", estado: "poseido" },
+            { nombre: "Cat Quest III", genero: "RPG", peso: "20 GB", estado: "poseido" },
+            { nombre: "Charon's Staircase", genero: "Aventura", peso: "10 GB", estado: "poseido" },
+            { nombre: "Chernobylite", genero: "Horror/Aventura", peso: "45 GB", estado: "poseido" },
+            { nombre: "Contra Operation Galuga", genero: "Acción", peso: "25 GB", estado: "poseido" },
+            { nombre: "Control Ultimate Edition", genero: "Acción", peso: "90 GB", estado: "poseido" },
+            { nombre: "Crash Bandicoot 4", genero: "Plataformas", peso: "35 GB", estado: "poseido" },
+            { nombre: "Crimson Spires", genero: "Acción", peso: "20 GB", estado: "poseido" },
+            { nombre: "Crown Wars The Black Prince", genero: "Estrategia", peso: "30 GB", estado: "poseido" },
+            { nombre: "Cyberpunk 2077", genero: "RPG", peso: "80 GB", estado: "poseido" },
+            { nombre: "Dakar Desert Rally", genero: "Carreras", peso: "50 GB", estado: "poseido" },
+            { nombre: "Daymare 1994 Sandcastle", genero: "Horror", peso: "40 GB", estado: "poseido" },
+            { nombre: "Dead Island 2", genero: "Acción", peso: "60 GB", estado: "poseido" },
+            { nombre: "Dead Rising Deluxe Remastered", genero: "Acción", peso: "55 GB", estado: "poseido" },
+            { nombre: "Dead Space Remake", genero: "Horror", peso: "65 GB", estado: "poseido" },
+            { nombre: "Demon Slayer Kimetsu no Yaiba", genero: "Acción", peso: "35 GB", estado: "poseido" },
+            { nombre: "Demon Slayer The Hinokami Chronicle", genero: "Lucha", peso: "40 GB", estado: "poseido" },
+            { nombre: "Demons Souls", genero: "RPG", peso: "65 GB", estado: "poseido" },
+            { nombre: "Destruction Allstars", genero: "Carreras", peso: "35 GB", estado: "poseido" },
+            { nombre: "Devil May Cry 5 Special Edition", genero: "Acción", peso: "50 GB", estado: "poseido" },
+            { nombre: "DIRT 5", genero: "Carreras", peso: "60 GB", estado: "poseido" },
+            { nombre: "Disciples Liberation", genero: "Estrategia/RPG", peso: "40 GB", estado: "poseido" },
+            { nombre: "Disgaea 6 Complete", genero: "RPG", peso: "30 GB", estado: "poseido" },
+            { nombre: "Disgaea 7 Vows of the Virtueless", genero: "RPG", peso: "35 GB", estado: "poseido" },
+            { nombre: "Disney Pixar Toy Story 2", genero: "Plataformas", peso: "20 GB", estado: "poseido" },
+            { nombre: "Dragon Age The Veilguard", genero: "RPG", peso: "100 GB", estado: "poseido" },
+            { nombre: "Dragon Ball Sparking Zero", genero: "Lucha", peso: "30 GB", estado: "poseido" },
+            { nombre: "Dragon Ball Z Kakarot", genero: "Acción/RPG", peso: "50 GB", estado: "poseido" },
+            { nombre: "Dragon Quest III HD-2D Remake", genero: "RPG", peso: "25 GB", estado: "poseido" },
+            { nombre: "Dragon's Dogma 2", genero: "RPG", peso: "95 GB", estado: "poseido" },
+            { nombre: "Dungeons Dragons Dark Alliance", genero: "Acción/RPG", peso: "45 GB", estado: "poseido" },
+            { nombre: "EA SPORTS WRC", genero: "Carreras", peso: "85 GB", estado: "poseido" },
+            { nombre: "EA Sports FC 25", genero: "Deportes", peso: "50 GB", estado: "poseido" },
+            { nombre: "Elden Ring", genero: "RPG", peso: "45 GB", estado: "poseido" },
+            { nombre: "Elex 2", genero: "RPG", peso: "60 GB", estado: "poseido" },
+            { nombre: "Empire of Ant", genero: "Estrategia", peso: "20 GB", estado: "poseido" },
+            { nombre: "Enotria The Last Song Deluxe Edition", genero: "Acción/RPG", peso: "40 GB", estado: "poseido" },
+            { nombre: "Ever Forward", genero: "Aventura", peso: "15 GB", estado: "poseido" },
+            { nombre: "Everspace 2", genero: "Acción", peso: "35 GB", estado: "poseido" },
+            { nombre: "EVOTINCTION", genero: "Acción", peso: "25 GB", estado: "poseido" },
+            { nombre: "Farming Simulator 22", genero: "Simulación", peso: "80 GB", estado: "poseido" },
+            { nombre: "Fatal Frame Maiden of Black Water", genero: "Horror", peso: "30 GB", estado: "poseido" },
+            { nombre: "Fishing North Atlantic Enhanced Edition", genero: "Simulación", peso: "25 GB", estado: "poseido" },
+            { nombre: "Five Nights at Freddys Security Breach", genero: "Horror", peso: "40 GB", estado: "poseido" },
+            { nombre: "Fobia St Dinfna Hotel", genero: "Horror", peso: "35 GB", estado: "poseido" },
+            { nombre: "Fort Solis", genero: "Aventura", peso: "20 GB", estado: "poseido" },
+            { nombre: "GameDEC", genero: "RPG", peso: "20 GB", estado: "poseido" },
+            { nombre: "Gangs of Sherwood", genero: "Acción", peso: "35 GB", estado: "poseido" },
+            { nombre: "Gear Club Unlimited 2", genero: "Carreras", peso: "40 GB", estado: "poseido" },
+            { nombre: "Ghost of Tsushima", genero: "Acción/Aventura", peso: "65 GB", estado: "poseido" },
+            { nombre: "Ghostwire Tokyo", genero: "Horror/Aventura", peso: "60 GB", estado: "poseido" },
+            { nombre: "Goat Simulator 3", genero: "Simulación", peso: "30 GB", estado: "poseido" },
+            { nombre: "God of Rock", genero: "Música", peso: "15 GB", estado: "poseido" },
+            { nombre: "God of War Ragnarök", genero: "Acción/Aventura", peso: "84 GB", estado: "poseido" },
+            { nombre: "Granblu Fantasy Relink", genero: "Acción/RPG", peso: "50 GB", estado: "poseido" },
+            { nombre: "Grand Theft Auto III Definitive Edition", genero: "Acción", peso: "50 GB", estado: "poseido" },
+            { nombre: "Grand Theft Auto San Andreas", genero: "Acción", peso: "50 GB", estado: "poseido" },
+            { nombre: "Grand Theft Auto Vice City Definitive Edition", genero: "Acción", peso: "50 GB", estado: "poseido" },
+            { nombre: "Greed Fall", genero: "RPG", peso: "60 GB", estado: "poseido" },
+            { nombre: "GTA V", genero: "Acción", peso: "85 GB", estado: "poseido" },
+            { nombre: "Guilty Gear Strive", genero: "Lucha", peso: "40 GB", estado: "poseido" },
+            { nombre: "Gundam Breaker 4", genero: "Acción", peso: "35 GB", estado: "poseido" },
+            { nombre: "High on Life", genero: "Aventura", peso: "25 GB", estado: "poseido" },
+            { nombre: "Hogwarts Legacy", genero: "RPG", peso: "85 GB", estado: "poseido" },
+            { nombre: "Hunting Simulator 2", genero: "Simulación", peso: "40 GB", estado: "poseido" },
+            { nombre: "Ikai", genero: "Aventura", peso: "15 GB", estado: "poseido" },
+            { nombre: "Immortals of Aveum", genero: "Acción/RPG", peso: "70 GB", estado: "poseido" },
+            { nombre: "Iron Harvest", genero: "Estrategia", peso: "50 GB", estado: "poseido" },
+            { nombre: "It Takes Two", genero: "Aventura", peso: "45 GB", estado: "poseido" },
+            { nombre: "Jack Holmes Master Of Puppets", genero: "Aventura", peso: "20 GB", estado: "poseido" },
+            { nombre: "Jitsu Squad", genero: "Acción", peso: "25 GB", estado: "poseido" },
+            { nombre: "Jumanji The Videogame", genero: "Aventura", peso: "30 GB", estado: "poseido" },
+            { nombre: "Jurassic Park Classic Games Collection", genero: "Acción", peso: "35 GB", estado: "poseido" },
+            { nombre: "Jusant", genero: "Aventura", peso: "25 GB", estado: "poseido" },
+            { nombre: "Kena PS5", genero: "Aventura", peso: "20 GB", estado: "poseido" },
+            { nombre: "LEGO 2K DRIVE", genero: "Carreras", peso: "60 GB", estado: "poseido" },
+            { nombre: "Lego Horizon Adventures", genero: "Aventura", peso: "50 GB", estado: "poseido" },
+            { nombre: "LEGO Star Wars The Skywalker Saga", genero: "Aventura", peso: "70 GB", estado: "poseido" },
+            { nombre: "Lies of P", genero: "RPG", peso: "50 GB", estado: "poseido" },
+            { nombre: "Life is Strange Double Exposure", genero: "Aventura", peso: "35 GB", estado: "poseido" },
+            { nombre: "Life is Strange True Colors", genero: "Aventura", peso: "30 GB", estado: "poseido" },
+            { nombre: "Little Big Adventure Twinsens Quest", genero: "Aventura", peso: "30 GB", estado: "poseido" },
+            { nombre: "Little Nightmares 2", genero: "Horror/Aventura", peso: "15 GB", estado: "poseido" },
+            { nombre: "Lollipop Chainsaw rePOP", genero: "Acción", peso: "30 GB", estado: "poseido" },
+            { nombre: "Lords of the Fallen", genero: "RPG", peso: "80 GB", estado: "poseido" },
+            { nombre: "MADiSON", genero: "Horror", peso: "20 GB", estado: "poseido" },
+            { nombre: "Martha is Dead", genero: "Horror", peso: "25 GB", estado: "poseido" },
+            { nombre: "Marvel's Guardians of the Galaxy", genero: "Acción/Aventura", peso: "65 GB", estado: "poseido" },
+            { nombre: "Mechwarrior 5 Mercenaries", genero: "Acción", peso: "50 GB", estado: "poseido" },
+            { nombre: "Medium", genero: "Horror/Aventura", peso: "30 GB", estado: "poseido" },
+            { nombre: "Miasma Chronicles", genero: "Estrategia/RPG", peso: "35 GB", estado: "poseido" },
+            { nombre: "Minecraft", genero: "Sandbox", peso: "20 GB", estado: "poseido" },
+            { nombre: "Minecraft Legends", genero: "Estrategia", peso: "25 GB", estado: "poseido" },
+            { nombre: "Monster Energy Supercross 6", genero: "Carreras", peso: "35 GB", estado: "poseido" },
+            { nombre: "Monster Truck Championship", genero: "Carreras", peso: "30 GB", estado: "poseido" },
+            { nombre: "Mortal Kombat 1", genero: "Lucha", peso: "55 GB", estado: "poseido" },
+            { nombre: "Mortal Kombat 11 Ultimate", genero: "Lucha", peso: "50 GB", estado: "poseido" },
+            { nombre: "Mortal Shell Enhanced Edition", genero: "RPG", peso: "30 GB", estado: "poseido" },
+            { nombre: "MotoGP 24", genero: "Carreras", peso: "40 GB", estado: "poseido" },
+            { nombre: "Need for Speed Unbound", genero: "Carreras", peso: "70 GB", estado: "poseido" },
+            { nombre: "Nickelodeon Kart Racers 3 Slime Speedway", genero: "Carreras", peso: "25 GB", estado: "poseido" },
+            { nombre: "On The Road Truck Simulator", genero: "Simulación", peso: "35 GB", estado: "poseido" },
+            { nombre: "ONE PIECE ODYSSEY", genero: "RPG", peso: "50 GB", estado: "poseido" },
+            { nombre: "Outer Wilds", genero: "Aventura", peso: "20 GB", estado: "poseido" },
+            { nombre: "PAW Patrol Grand Prix", genero: "Carreras", peso: "20 GB", estado: "poseido" },
+            { nombre: "Persona 3 Reload", genero: "RPG", peso: "45 GB", estado: "poseido" },
+            { nombre: "Poppy Playtime Chapter 3", genero: "Horror", peso: "20 GB", estado: "poseido" },
+            { nombre: "Prince Of Persia The Lost Crown", genero: "Acción/Aventura", peso: "40 GB", estado: "poseido" },
+            { nombre: "Quake", genero: "Acción", peso: "60 GB", estado: "poseido" },
+            { nombre: "Redemption Reapers", genero: "Estrategia/RPG", peso: "30 GB", estado: "poseido" },
+            { nombre: "Remnant 2", genero: "Acción/RPG", peso: "60 GB", estado: "poseido" },
+            { nombre: "Resident Evil 2 Remake", genero: "Horror", peso: "50 GB", estado: "poseido" },
+            { nombre: "Resident Evil 3 Remake", genero: "Horror", peso: "45 GB", estado: "poseido" },
+            { nombre: "Resident Evil 4 Remake", genero: "Horror", peso: "58 GB", estado: "poseido" },
+            { nombre: "Resident Evil 7 Gold Edition", genero: "Horror", peso: "50 GB", estado: "poseido" },
+            { nombre: "Resident Evil Village Gold Edition", genero: "Horror", peso: "55 GB", estado: "poseido" },
+            { nombre: "Returnal", genero: "Acción", peso: "40 GB", estado: "poseido" },
+            { nombre: "RIDE 5", genero: "Carreras", peso: "50 GB", estado: "poseido" },
+            { nombre: "RISE of KONG", genero: "Acción", peso: "35 GB", estado: "poseido" },
+            { nombre: "RoboCop Rogue City", genero: "Acción", peso: "55 GB", estado: "poseido" },
+            { nombre: "Sackboy A Big Adventure", genero: "Plataformas", peso: "35 GB", estado: "poseido" },
+            { nombre: "Scars Above", genero: "Acción", peso: "30 GB", estado: "poseido" },
+            { nombre: "Shadow Warrior 3", genero: "Acción", peso: "45 GB", estado: "poseido" },
+            { nombre: "Sifu", genero: "Acción", peso: "25 GB", estado: "poseido" },
+            { nombre: "Silent Hill 2", genero: "Horror", peso: "50 GB", estado: "poseido" },
+            { nombre: "Silent Hill The Short Message", genero: "Horror", peso: "20 GB", estado: "poseido" },
+            { nombre: "Skautfold Into The Fray", genero: "Acción", peso: "30 GB", estado: "poseido" },
+            { nombre: "Sker Ritual", genero: "Horror", peso: "25 GB", estado: "poseido" },
+            { nombre: "Skyrim", genero: "RPG", peso: "60 GB", estado: "poseido" },
+            { nombre: "Slave Zero X", genero: "Acción", peso: "20 GB", estado: "poseido" },
+            { nombre: "Smalland Survive the Wilds", genero: "Aventura", peso: "30 GB", estado: "poseido" },
+            { nombre: "Sniper Ghost Warrior Contract 2", genero: "Acción", peso: "45 GB", estado: "poseido" },
+            { nombre: "Soulstice", genero: "Acción", peso: "35 GB", estado: "poseido" },
+            { nombre: "STAR WARS Jedi Fallen Order", genero: "Acción/Aventura", peso: "55 GB", estado: "poseido" },
+            { nombre: "Star Wars Outlaw", genero: "Acción/Aventura", peso: "65 GB", estado: "poseido" },
+            { nombre: "Stranger of Paradise Final Fantasy Origin", genero: "Acción/RPG", peso: "60 GB", estado: "poseido" },
+            { nombre: "Stray", genero: "Aventura", peso: "25 GB", estado: "poseido" },
+            { nombre: "Street Fighter 6", genero: "Lucha", peso: "45 GB", estado: "poseido" },
+            { nombre: "Subnautica Below Zero", genero: "Aventura", peso: "35 GB", estado: "poseido" },
+            { nombre: "Super Bomberman", genero: "Acción", peso: "20 GB", estado: "poseido" },
+            { nombre: "SWORD ART ONLINE Fractured Daydream", genero: "Acción/RPG", peso: "40 GB", estado: "poseido" },
+            { nombre: "SWORD ART ONLINE Last Recollection", genero: "Acción/RPG", peso: "45 GB", estado: "poseido" },
+            { nombre: "Syphon Filter", genero: "Acción", peso: "30 GB", estado: "poseido" },
+            { nombre: "Tales of Arise", genero: "RPG", peso: "50 GB", estado: "poseido" },
+            { nombre: "Tekken 8", genero: "Lucha", peso: "50 GB", estado: "poseido" },
+            { nombre: "Terminator Resistance Enhanced", genero: "Acción", peso: "45 GB", estado: "poseido" },
+            { nombre: "The Callisto Protocol", genero: "Horror", peso: "50 GB", estado: "poseido" },
+            { nombre: "The Chant", genero: "Horror", peso: "25 GB", estado: "poseido" },
+            { nombre: "The Crown Of Wu", genero: "Acción", peso: "35 GB", estado: "poseido" },
+            { nombre: "The Dark Pictures Anthology House of Ashes", genero: "Horror", peso: "55 GB", estado: "poseido" },
+            { nombre: "The Dark Pictures Anthology The Devil in Me", genero: "Horror", peso: "50 GB", estado: "poseido" },
+            { nombre: "The Eternal Cylinder", genero: "Aventura", peso: "20 GB", estado: "poseido" },
+            { nombre: "The Last Of Us Part 1", genero: "Acción/Aventura", peso: "79 GB", estado: "poseido" },
+            { nombre: "The Last of Us Part 2", genero: "Acción/Aventura", peso: "85 GB", estado: "poseido" },
+            { nombre: "The Last Stand Aftermath", genero: "Acción", peso: "25 GB", estado: "poseido" },
+            { nombre: "The Lord of the Rings Gollum", genero: "Aventura", peso: "40 GB", estado: "poseido" },
+            { nombre: "The Lord of the Rings Return to Moria", genero: "Aventura", peso: "35 GB", estado: "poseido" },
+            { nombre: "The Persistence", genero: "Horror", peso: "30 GB", estado: "poseido" },
+            { nombre: "The Riftbreaker", genero: "Acción", peso: "35 GB", estado: "poseido" },
+            { nombre: "The Smurfs Mission Vileaf", genero: "Plataformas", peso: "20 GB", estado: "poseido" },
+            { nombre: "Thymesia", genero: "Acción/RPG", peso: "25 GB", estado: "poseido" },
+            { nombre: "Tiny Tina's Wonderlands", genero: "RPG", peso: "60 GB", estado: "poseido" },
+            { nombre: "Tomb Raider 1-3 Remastered", genero: "Acción/Aventura", peso: "40 GB", estado: "poseido" },
+            { nombre: "TopSpin 2K25", genero: "Deportes", peso: "35 GB", estado: "poseido" },
+            { nombre: "Tormented Souls", genero: "Horror", peso: "20 GB", estado: "poseido" },
+            { nombre: "Transformers Earthspark Expedition", genero: "Acción", peso: "35 GB", estado: "poseido" },
+            { nombre: "Trek To Yomi", genero: "Acción", peso: "20 GB", estado: "poseido" },
+            { nombre: "Uncharted Legacy Of Thieves Collection", genero: "Acción/Aventura", peso: "70 GB", estado: "poseido" },
+            { nombre: "Undisputed", genero: "Deportes", peso: "45 GB", estado: "poseido" },
+            { nombre: "Until Dawn Remake", genero: "Horror", peso: "50 GB", estado: "poseido" },
+            { nombre: "Valkyrie Elysium", genero: "Acción/RPG", peso: "35 GB", estado: "poseido" },
+            { nombre: "Vampire The Masquerade Swansong", genero: "RPG", peso: "40 GB", estado: "poseido" },
+            { nombre: "Way of the Hunter", genero: "Simulación", peso: "35 GB", estado: "poseido" },
+            { nombre: "Werewolf The Apocalypse Earthblood", genero: "Acción/RPG", peso: "45 GB", estado: "poseido" },
+            { nombre: "Wo Long Fallen Dynasty", genero: "Acción/RPG", peso: "55 GB", estado: "poseido" },
+            { nombre: "WWW 2K24", genero: "Deportes", peso: "40 GB", estado: "poseido" },
+            { nombre: "XIII", genero: "Acción", peso: "30 GB", estado: "poseido" },
+            { nombre: "Yonder The Cloud Catcher Chronicles", genero: "Aventura", peso: "20 GB", estado: "poseido" },
+
+            // FALTANTES
+            { nombre: "The Caligula Effect Overdose", genero: "RPG", peso: "30 GB", estado: "faltante" },
+            { nombre: "Dead Cells", genero: "Acción", peso: "25 GB", estado: "faltante" },
+            { nombre: "The Caligula Effect 2", genero: "RPG", peso: "35 GB", estado: "faltante" },
+            { nombre: "A Quiet Place The Road Ahead", genero: "Horror/Aventura", peso: "40 GB", estado: "faltante" },
+            { nombre: "Disney Epic Mickey Rebrushed", genero: "Aventura", peso: "35 GB", estado: "faltante" },
+            { nombre: "Hot Wheels Monster Trucks", genero: "Carreras", peso: "30 GB", estado: "faltante" },
+            { nombre: "Morbid The Lords of Ire", genero: "RPG", peso: "40 GB", estado: "faltante" },
+            { nombre: "Pneumata", genero: "Horror", peso: "25 GB", estado: "faltante" },
+            { nombre: "WWE 2K24", genero: "Deportes", peso: "50 GB", estado: "faltante" },
+            { nombre: "Looney Tunes Wacky World of Sports", genero: "Deportes", peso: "20 GB", estado: "faltante" },
+            { nombre: "Cygni All Guns Blazing", genero: "Acción", peso: "20 GB", estado: "faltante" },
+            { nombre: "Sid Meiers Civilization VII", genero: "Estrategia", peso: "45 GB", estado: "faltante" },
+            { nombre: "The Precinct", genero: "Aventura", peso: "25 GB", estado: "faltante" },
+            { nombre: "Sonic Racing CrossWorlds", genero: "Carreras", peso: "30 GB", estado: "faltante" },
+            { nombre: "Rugrats Adventure in Gameland", genero: "Plataformas", peso: "20 GB", estado: "faltante" },
+            { nombre: "Daemon X Machina Titanic Scion", genero: "Acción", peso: "35 GB", estado: "faltante" },
+            { nombre: "Horizon Chase 2", genero: "Carreras", peso: "25 GB", estado: "faltante" },
+            { nombre: "Dragon Quest I and II HD 2D Remake", genero: "RPG", peso: "20 GB", estado: "faltante" },
+            { nombre: "Treasures of The Aegean", genero: "Aventura", peso: "15 GB", estado: "faltante" },
+            { nombre: "Vampire The Masquerade Bloodlines 2", genero: "RPG", peso: "60 GB", estado: "faltante" },
+            { nombre: "Ghost of Yotei", genero: "Acción/Aventura", peso: "70 GB", estado: "faltante" },
+            { nombre: "Demon Slayer Kimetsu no Yaiba The Hinokami Chronicles 2", genero: "Lucha", peso: "45 GB", estado: "faltante" },
+            { nombre: "Dreamcore", genero: "Horror", peso: "20 GB", estado: "faltante" },
+            { nombre: "One Night Stand", genero: "Aventura", peso: "15 GB", estado: "faltante" },
+            { nombre: "Elden Ring Nightreign", genero: "RPG", peso: "50 GB", estado: "faltante" },
+            { nombre: "Legacy of Kain Soul Reaver 1 & 2 Remastered", genero: "Acción/Aventura", peso: "55 GB", estado: "faltante" },
+            { nombre: "Hell Is Us", genero: "Acción", peso: "40 GB", estado: "faltante" },
+            { nombre: "Mafia The Old Country", genero: "Acción", peso: "70 GB", estado: "faltante" },
+            { nombre: "The Exit 9", genero: "Acción", peso: "30 GB", estado: "faltante" },
+            { nombre: "Forza Horizon 5", genero: "Carreras", peso: "100 GB", estado: "faltante" },
+            { nombre: "Mortal Kombat Legacy Kollection", genero: "Lucha", peso: "60 GB", estado: "faltante" },
+            { nombre: "Little Nightmares 3", genero: "Horror/Aventura", peso: "30 GB", estado: "faltante" },
+            { nombre: "S.T.A.L.K.E.R. 2 Heart of Chernobyl", genero: "Acción/Aventura", peso: "160 GB", estado: "faltante" },
+            { nombre: "The First Berserker Khazan", genero: "Acción", peso: "40 GB", estado: "faltante" },
+            { nombre: "Another Crab's Treasure", genero: "Aventura", peso: "25 GB", estado: "faltante" },
+            { nombre: "Split Fiction", genero: "Aventura", peso: "30 GB", estado: "faltante" },
+            { nombre: "WUCHANG Fallen Feathers", genero: "Acción/RPG", peso: "45 GB", estado: "faltante" },
+            { nombre: "MindsEye", genero: "Aventura", peso: "20 GB", estado: "faltante" },
+            { nombre: "The Elder Scrolls IV Oblivion Remastered", genero: "RPG", peso: "50 GB", estado: "faltante" },
+            { nombre: "Days Gone Remastered", genero: "Acción/Aventura", peso: "65 GB", estado: "faltante" },
+            { nombre: "The Binding of Isaac Repentance", genero: "Acción", peso: "20 GB", estado: "faltante" },
+            { nombre: "Clair Obscur Expedition 33", genero: "Acción/RPG", peso: "50 GB", estado: "faltante" },
+            { nombre: "Indiana Jones and The Great Circle", genero: "Aventura", peso: "120 GB", estado: "faltante" },
+            { nombre: "The Smurfs 2 The Prisoner of the Green Stone", genero: "Plataformas", peso: "25 GB", estado: "faltante" },
+            { nombre: "Sea of Stars", genero: "RPG", peso: "30 GB", estado: "faltante" },
+            { nombre: "The Light Brigade", genero: "Acción", peso: "20 GB", estado: "faltante" },
+            { nombre: "Smurfs Kart", genero: "Carreras", peso: "20 GB", estado: "faltante" },
+            { nombre: "Hellboy Web of Wyrd", genero: "Acción", peso: "35 GB", estado: "faltante" },
+            { nombre: "Asterix & Obelix Heroes", genero: "Aventura", peso: "30 GB", estado: "faltante" },
+            { nombre: "Dungeons 4", genero: "Estrategia", peso: "25 GB", estado: "faltante" },
+            { nombre: "The Witcher III Wild Hunt Complete Edition", genero: "RPG", peso: "90 GB", estado: "faltante" },
+            { nombre: "Potion Permit", genero: "Simulación", peso: "15 GB", estado: "faltante" },
+            { nombre: "Tiger Blade", genero: "Acción", peso: "20 GB", estado: "faltante" },
+            { nombre: "Cave Digger 2 Dig Harder", genero: "Simulación", peso: "20 GB", estado: "faltante" },
+            { nombre: "Witch Spring R", genero: "RPG", peso: "25 GB", estado: "faltante" },
+            { nombre: "We Love Katamari Reroll+ Royal Reverie", genero: "Acción", peso: "20 GB", estado: "faltante" },
+            { nombre: "Taiko no Tatsujin Rhythm Festival", genero: "Música", peso: "15 GB", estado: "faltante" },
+            { nombre: "Lost Epic", genero: "RPG", peso: "30 GB", estado: "faltante" },
+            { nombre: "KAGE Shadow of The Ninja", genero: "Acción", peso: "25 GB", estado: "faltante" },
+            { nombre: "Gori Cuddly Carnage", genero: "Acción", peso: "20 GB", estado: "faltante" },
+            { nombre: "Funko Fusion", genero: "Acción", peso: "30 GB", estado: "faltante" },
+            { nombre: "The House of the Dead Remake", genero: "Acción", peso: "35 GB", estado: "faltante" },
+            { nombre: "Enchanted Portals", genero: "Aventura", peso: "20 GB", estado: "faltante" },
+            { nombre: "Hitman World of Assassination", genero: "Acción", peso: "60 GB", estado: "faltante" },
+            { nombre: "HappyFunland", genero: "Aventura", peso: "15 GB", estado: "faltante" },
+            { nombre: "Infinity Strash DRAGON QUEST The Adventure of Dai", genero: "Acción/RPG", peso: "40 GB", estado: "faltante" },
+            { nombre: "Tactics Ogre Reborn", genero: "Estrategia/RPG", peso: "35 GB", estado: "faltante" },
+            { nombre: "Potionomics Masterwork Edition", genero: "Simulación", peso: "20 GB", estado: "faltante" },
+            { nombre: "Star Ocean The Divine Force", genero: "RPG", peso: "40 GB", estado: "faltante" },
+            { nombre: "Earth Defense Force World Brothers 2", genero: "Acción", peso: "25 GB", estado: "faltante" },
+            { nombre: "ArcRunner", genero: "Acción", peso: "20 GB", estado: "faltante" },
+            { nombre: "Poppy Playtime Chapter 2", genero: "Horror", peso: "15 GB", estado: "faltante" },
+            { nombre: "Poppy Playtime Chapter 1", genero: "Horror", peso: "15 GB", estado: "faltante" },
+            { nombre: "Park Beyond", genero: "Simulación", peso: "30 GB", estado: "faltante" },
+            { nombre: "BIOHAZARD RE 4", genero: "Horror", peso: "58 GB", estado: "faltante" },
+            { nombre: "Oddworld Soulstorm", genero: "Aventura", peso: "45 GB", estado: "faltante" },
+            { nombre: "Star Wars Outlaws", genero: "Acción/Aventura", peso: "65 GB", estado: "faltante" },
+            { nombre: "EA Sports FIFA 23", genero: "Deportes", peso: "50 GB", estado: "faltante" },
+            { nombre: "NHL 24", genero: "Deportes", peso: "45 GB", estado: "faltante" },
+            { nombre: "KLONOA Phantasy Reverie Series", genero: "Plataformas", peso: "25 GB", estado: "faltante" },
+            { nombre: "The Talos Principle 2", genero: "Aventura", peso: "35 GB", estado: "faltante" },
+            { nombre: "The Messenger", genero: "Plataformas", peso: "20 GB", estado: "faltante" },
+            { nombre: "Two Point Campus", genero: "Simulación", peso: "25 GB", estado: "faltante" },
+            { nombre: "PAC-Man World Re-PAC", genero: "Plataformas", peso: "20 GB", estado: "faltante" },
+            { nombre: "EA Sports PGA Tour", genero: "Deportes", peso: "40 GB", estado: "faltante" },
+            { nombre: "The Tale of Onogoro", genero: "Aventura", peso: "20 GB", estado: "faltante" },
+            { nombre: "Vertigo 2", genero: "Acción", peso: "30 GB", estado: "faltante" },
+            { nombre: "Flashback 2", genero: "Acción", peso: "25 GB", estado: "faltante" },
+            { nombre: "Born of Bread", genero: "Aventura", peso: "20 GB", estado: "faltante" },
+            { nombre: "Selfloss", genero: "Aventura", peso: "15 GB", estado: "faltante" },
+            { nombre: "Seeker My Shadow", genero: "Aventura", peso: "20 GB", estado: "faltante" },
+            { nombre: "Grand Theft Auto V", genero: "Acción", peso: "85 GB", estado: "faltante" },
+            { nombre: "Harvest Days", genero: "Simulación", peso: "20 GB", estado: "faltante" },
+            { nombre: "Nickelodeon All-Star Brawl 2", genero: "Lucha", peso: "25 GB", estado: "faltante" },
+            { nombre: "The Last Faith", genero: "Acción/RPG", peso: "30 GB", estado: "faltante" },
+            { nombre: "Teardown", genero: "Acción", peso: "25 GB", estado: "faltante" },
+            { nombre: "Spacebase Startopia", genero: "Simulación", peso: "30 GB", estado: "faltante" },
+            { nombre: "Matchbox Driving Adventures", genero: "Carreras", peso: "20 GB", estado: "faltante" },
+            { nombre: "Darkest Dungeon II", genero: "RPG", peso: "25 GB", estado: "faltante" },
+            { nombre: "Arcade Game Zone", genero: "Acción", peso: "15 GB", estado: "faltante" },
+            { nombre: "Taxi Life A City Driving Simulator", genero: "Simulación", peso: "30 GB", estado: "faltante" },
+            { nombre: "UFO Robot Grendizer The Feast of The Wolves", genero: "Acción", peso: "40 GB", estado: "faltante" },
+            { nombre: "Teenage Mutant Ninja Turtles Arcade Wrath of The Mutants", genero: "Acción", peso: "30 GB", estado: "faltante" },
+            { nombre: "Teenage Mutant Ninja Turtles Mutants Unleashed", genero: "Acción", peso: "35 GB", estado: "faltante" },
+            { nombre: "Clash Artifacts of Chaos", genero: "Acción", peso: "25 GB", estado: "faltante" },
+            { nombre: "The Invincible", genero: "Aventura", peso: "25 GB", estado: "faltante" },
+            { nombre: "Shame Legacy", genero: "Aventura", peso: "20 GB", estado: "faltante" },
+            { nombre: "SAND LAND", genero: "RPG", peso: "35 GB", estado: "faltante" },
+            { nombre: "Squirrel With A Gun", genero: "Acción", peso: "20 GB", estado: "faltante" },
+            { nombre: "GYLT", genero: "Aventura", peso: "20 GB", estado: "faltante" },
+            { nombre: "Deep Rock Galactic", genero: "Acción", peso: "40 GB", estado: "faltante" },
+            { nombre: "Crossfire Sierra Squad", genero: "Acción", peso: "35 GB", estado: "faltante" },
+            { nombre: "Horror Tales The Wine", genero: "Horror", peso: "20 GB", estado: "faltante" },
+            { nombre: "Arcade Spirits The New Challengers", genero: "Aventura", peso: "15 GB", estado: "faltante" },
+            { nombre: "Ovrdark", genero: "Horror", peso: "25 GB", estado: "faltante" },
+            { nombre: "Outcast A New Beginning", genero: "Aventura", peso: "35 GB", estado: "faltante" },
+            { nombre: "Evil West", genero: "Acción", peso: "40 GB", estado: "faltante" },
+            { nombre: "Empire of the Ants", genero: "Estrategia", peso: "25 GB", estado: "faltante" },
+            { nombre: "Grand Theft Auto The Trilogy The Definitive Edition", genero: "Acción", peso: "90 GB", estado: "faltante" },
+            { nombre: "Crash Bandicoot 4 Its About Time", genero: "Plataformas", peso: "35 GB", estado: "faltante" },
+            { nombre: "Star Wars Tales from the Galaxys Edge", genero: "Aventura", peso: "30 GB", estado: "faltante" },
+            { nombre: "The Walking Dead Saints & Sinners Chapter 2 Retribution", genero: "Horror/Aventura", peso: "40 GB", estado: "faltante" },
+            { nombre: "Transformer Galactic Trails", genero: "Acción", peso: "35 GB", estado: "faltante" },
+            { nombre: "Ed-0 Zombie Uprising", genero: "Acción", peso: "30 GB", estado: "faltante" },
+            { nombre: "The King of Fighters XV", genero: "Lucha", peso: "40 GB", estado: "faltante" },
+            { nombre: "Overpass 2", genero: "Carreras", peso: "35 GB", estado: "faltante" },
+            { nombre: "Last Days of Lazarus", genero: "Horror", peso: "25 GB", estado: "faltante" },
+            { nombre: "Still Wakes The Deep", genero: "Horror/Aventura", peso: "30 GB", estado: "faltante" },
+            { nombre: "MotoGP 23", genero: "Carreras", peso: "40 GB", estado: "faltante" },
+            { nombre: "Pacific Drive", genero: "Aventura", peso: "35 GB", estado: "faltante" },
+            { nombre: "Steelrising", genero: "RPG", peso: "50 GB", estado: "faltante" },
+            { nombre: "Afterimage", genero: "RPG", peso: "30 GB", estado: "faltante" },
+            { nombre: "Bramble The Mountain King", genero: "Horror/Aventura", peso: "35 GB", estado: "faltante" },
+            { nombre: "Tourist Bus Simulator", genero: "Simulación", peso: "25 GB", estado: "faltante" },
+            { nombre: "Dusk Diver 2", genero: "Acción/RPG", peso: "30 GB", estado: "faltante" },
+            { nombre: "Police Simulator Patrol Officers", genero: "Simulación", peso: "30 GB", estado: "faltante" },
+            { nombre: "The DioField Chronicle", genero: "Estrategia/RPG", peso: "25 GB", estado: "faltante" },
+            { nombre: "Medieval Dynasty", genero: "Simulación", peso: "35 GB", estado: "faltante" },
+            { nombre: "Hello Neighbor 2", genero: "Aventura", peso: "30 GB", estado: "faltante" },
+            { nombre: "Octopath Traveler 2", genero: "RPG", peso: "25 GB", estado: "faltante" }
+        ];
+
+        let currentFilter = 'todos';
+        let searchTerm = '';
+
+        function renderGames() {
+            const grid = document.getElementById('games-grid');
+            const noResults = document.getElementById('no-results');
+            grid.innerHTML = '';
+
+            let filteredGames = games;
+
+            // Aplicar filtro de estado
+            if (currentFilter !== 'todos') {
+                filteredGames = filteredGames.filter(g => g.estado === currentFilter);
+            }
+
+            // Aplicar búsqueda
+            if (searchTerm) {
+                filteredGames = filteredGames.filter(g => 
+                    g.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    g.genero.toLowerCase().includes(searchTerm.toLowerCase())
+                );
+            }
+
+            if (filteredGames.length === 0) {
+                noResults.style.display = 'block';
+                return;
+            }
+
+            noResults.style.display = 'none';
+
+            filteredGames.forEach(game => {
+                const card = document.createElement('div');
+                card.className = `game-card ${game.estado}`;
+                card.innerHTML = `
+                    <div class="game-image">
+                        🎮 ${game.nombre}
+                    </div>
+                    <div class="game-info">
+                        <div class="game-title">${game.nombre}</div>
+                        <div class="game-details">
+                            <div class="game-genre">📁 ${game.genero}</div>
+                            <div class="game-size">💾 ${game.peso}</div>
+                        </div>
+                        <div class="game-status ${game.estado === 'poseido' ? 'status-poseido' : 'status-faltante'}">
+                            ${game.estado === 'poseido' ? '✓ POSEÍDO' : '✗ FALTANTE'}
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            updateStats();
+        }
+
+        function updateStats() {
+            const total = games.length;
+            const owned = games.filter(g => g.estado === 'poseido').length;
+            const missing = games.filter(g => g.estado === 'faltante').length;
+
+            document.getElementById('total-games').textContent = total;
+            document.getElementById('owned-games').textContent = owned;
+            document.getElementById('missing-games').textContent = missing;
+        }
+
+        // Event listeners
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.dataset.filter;
+                renderGames();
+            });
+        });
+
+        document.getElementById('search-input').addEventListener('input', (e) => {
+            searchTerm = e.target.value;
+            renderGames();
+        });
+
+        // Render inicial
+        renderGames();
+    </script>
+</body>
+</html>
