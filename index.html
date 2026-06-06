@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vaan-CFG Gaming Catalog - Mi Colección de PS5</title>
+    <title>Vaan-CFG Gaming Catalog</title>
     <style>
         * {
             margin: 0;
@@ -20,7 +20,7 @@
         }
 
         .container {
-            max-width: 1600px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
@@ -48,14 +48,6 @@
             margin-bottom: 10px;
             color: #a78bfa;
             text-shadow: 0 0 20px rgba(167, 139, 250, 0.4);
-        }
-
-        .header-subtitle {
-            font-size: 1.1em;
-            color: #7c3aed;
-            margin-top: 5px;
-            font-weight: 300;
-            letter-spacing: 1px;
         }
 
         .stats {
@@ -118,107 +110,64 @@
             border-color: #60a5fa;
         }
 
-        .filter-btn {
-            padding: 12px 25px;
-            border: 2px solid #7c3aed;
-            background: transparent;
-            color: #a78bfa;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: all 0.3s ease;
-            font-weight: bold;
-        }
-
-        .filter-btn:hover {
-            background: #7c3aed;
-            color: #fff;
-            transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(124, 58, 237, 0.4);
-        }
-
-        .filter-btn.active {
-            background: #7c3aed;
-            color: #fff;
-            box-shadow: 0 0 15px rgba(124, 58, 237, 0.4);
-        }
-
-        .games-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 15px;
-            margin-bottom: 40px;
-        }
-
-        .game-card {
-            background: #16213e;
-            border: 2px solid #7c3aed;
-            border-radius: 8px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .game-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.3), 0 0 20px rgba(96, 165, 250, 0.2);
-            border-color: #60a5fa;
-        }
-
-        .game-image {
+        .games-table {
             width: 100%;
-            height: 200px;
-            background: #0f1f3a;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
+            border-collapse: collapse;
+            margin-top: 20px;
         }
 
-        .game-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
+        .games-table thead {
+            background: rgba(124, 58, 237, 0.15);
+            border-bottom: 2px solid #7c3aed;
         }
 
-        .game-card:hover .game-image img {
-            transform: scale(1.05);
-        }
-
-        .game-info {
-            padding: 10px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .game-title {
-            font-size: 0.85em;
-            font-weight: bold;
+        .games-table th {
+            padding: 15px;
+            text-align: left;
             color: #a78bfa;
-            margin-bottom: 5px;
-            line-height: 1.2;
-            min-height: 35px;
+            font-weight: bold;
+            border-right: 1px solid #7c3aed;
         }
 
-        .game-details {
-            font-size: 0.75em;
-            color: #bbb;
-            margin-bottom: 5px;
+        .games-table th:last-child {
+            border-right: none;
+        }
+
+        .games-table tbody tr {
+            border-bottom: 1px solid rgba(124, 58, 237, 0.2);
+            transition: background 0.3s ease;
+        }
+
+        .games-table tbody tr:hover {
+            background: rgba(124, 58, 237, 0.1);
+        }
+
+        .games-table td {
+            padding: 12px 15px;
+            border-right: 1px solid rgba(124, 58, 237, 0.1);
+        }
+
+        .games-table td:last-child {
+            border-right: none;
+        }
+
+        .game-name {
+            color: #a78bfa;
+            font-weight: bold;
         }
 
         .game-genre {
             color: #60a5fa;
-            font-weight: bold;
-            margin-bottom: 3px;
         }
 
         .game-size {
-            color: #a78bfa;
+            color: #bbb;
+        }
+
+        .game-sinopsis {
+            color: #ccc;
+            font-size: 0.9em;
+            max-width: 400px;
         }
 
         .no-results {
@@ -245,13 +194,16 @@
                 font-size: 1.8em;
             }
 
-            .games-grid {
-                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-                gap: 10px;
+            .games-table {
+                font-size: 0.9em;
             }
 
-            .stats {
-                gap: 20px;
+            .games-table th, .games-table td {
+                padding: 8px;
+            }
+
+            .game-sinopsis {
+                display: none;
             }
         }
     </style>
@@ -260,8 +212,7 @@
     <div class="container">
         <header>
             <div class="header-brand">⚙️ VAAN-CFG</div>
-            <h1>🎮 MI CATÁLOGO DE JUEGOS PS5</h1>
-            <div class="header-subtitle">Powered by Vaan-CFG Gaming Catalog</div>
+            <h1>🎮 CATÁLOGO DE JUEGOS PS5</h1>
             <div class="stats">
                 <div class="stat-box">
                     <h3>Total de Juegos</h3>
@@ -272,399 +223,42 @@
 
         <div class="controls">
             <div class="search-box">
-                <input type="text" id="search-input" placeholder="Busca un juego...">
+                <input type="text" id="search-input" placeholder="Busca un juego por nombre o género...">
             </div>
         </div>
 
-        <div class="games-grid" id="games-grid">
-            <!-- Los juegos se cargarán aquí -->
-        </div>
+        <table class="games-table" id="games-table">
+            <thead>
+                <tr>
+                    <th style="width: 25%;">Nombre</th>
+                    <th style="width: 15%;">Género</th>
+                    <th style="width: 10%;">Peso</th>
+                    <th style="width: 50%;">Sinopsis</th>
+                </tr>
+            </thead>
+            <tbody id="games-tbody">
+            </tbody>
+        </table>
 
         <div id="no-results" class="no-results" style="display: none;">
             No se encontraron juegos con esos criterios.
         </div>
 
         <footer>
-            <p>🏢 <strong>Taller Vaan-CFG</strong> | Catálogo creado con ❤️ | Última actualización: Junio 2026</p>
+            <p>🏢 <strong>Taller Vaan-CFG</strong> | Catálogo de juegos PS5 | Última actualización: Junio 2026</p>
         </footer>
     </div>
 
     <script>
-        // Cargar datos de portadas
-        let gameCovers = {};
-
-        fetch('game_covers.json')
-            .then(response => response.json())
-            .then(data => {
-                gameCovers = data;
-                renderGames();
-            })
-            .catch(error => {
-                console.error('Error cargando portadas:', error);
-                renderGames();
-            });
-
-        // Base de datos de juegos
-        const games = [
-            // POSEÍDOS
-            { nombre: "41 Hours", genero: "Aventura", peso: "15 GB" },
-            { nombre: "A Plague Tale Requiem", genero: "Aventura", peso: "45 GB" },
-            { nombre: "Ad Infinitum", genero: "Horror", peso: "25 GB" },
-            { nombre: "AEW Fight Forever", genero: "Lucha", peso: "35 GB" },
-            { nombre: "Alan Wake Remastered", genero: "Acción/Horror", peso: "90 GB" },
-            { nombre: "Aliens Dark Descent", genero: "Acción", peso: "40 GB" },
-            { nombre: "Aliens Fireteam Elite", genero: "Acción", peso: "50 GB" },
-            { nombre: "Alone in the Dark", genero: "Horror", peso: "55 GB" },
-            { nombre: "Apsulov End of Gods", genero: "Acción/Horror", peso: "30 GB" },
-            { nombre: "Aragami 2", genero: "Acción", peso: "25 GB" },
-            { nombre: "ARK Survival Ascended", genero: "Supervivencia", peso: "120 GB" },
-            { nombre: "Assetto Corsa Competizione", genero: "Carreras", peso: "80 GB" },
-            { nombre: "Asterigos Curse of the Stars", genero: "RPG", peso: "35 GB" },
-            { nombre: "Astria Ascending", genero: "RPG", peso: "20 GB" },
-            { nombre: "Astro Bot", genero: "Plataformas", peso: "40 GB" },
-            { nombre: "Avatar Frontiers of Pandora", genero: "Acción/Aventura", peso: "100 GB" },
-            { nombre: "Avatar The Last Airbender", genero: "Acción", peso: "30 GB" },
-            { nombre: "Away", genero: "Aventura", peso: "20 GB" },
-            { nombre: "Balan Wonderworld", genero: "Plataformas", peso: "25 GB" },
-            { nombre: "Baldur's Gate 3", genero: "RPG", peso: "150 GB" },
-            { nombre: "Banishers Ghosts of New Eden", genero: "Acción/Aventura", peso: "60 GB" },
-            { nombre: "Beyond a Steel Sky", genero: "Aventura", peso: "15 GB" },
-            { nombre: "Black Myth Wukong", genero: "Acción RPG", peso: "118 GB" },
-            { nombre: "BlackWind", genero: "Acción", peso: "20 GB" },
-            { nombre: "Blasphemous II", genero: "Acción", peso: "30 GB" },
-            { nombre: "Bleak Faith Forsaken", genero: "RPG", peso: "35 GB" },
-            { nombre: "Blood Bowl III", genero: "Deportes", peso: "45 GB" },
-            { nombre: "BloodRayne Betrayal", genero: "Acción", peso: "15 GB" },
-            { nombre: "Borderlands 3", genero: "Acción/RPG", peso: "95 GB" },
-            { nombre: "Call of the Sea", genero: "Aventura", peso: "15 GB" },
-            { nombre: "Cat Quest III", genero: "RPG", peso: "20 GB" },
-            { nombre: "Charon's Staircase", genero: "Aventura", peso: "10 GB" },
-            { nombre: "Chernobylite", genero: "Horror/Aventura", peso: "45 GB" },
-            { nombre: "Contra Operation Galuga", genero: "Acción", peso: "25 GB" },
-            { nombre: "Control Ultimate Edition", genero: "Acción", peso: "90 GB" },
-            { nombre: "Crash Bandicoot 4", genero: "Plataformas", peso: "35 GB" },
-            { nombre: "Crimson Spires", genero: "Acción", peso: "20 GB" },
-            { nombre: "Crown Wars The Black Prince", genero: "Estrategia", peso: "30 GB" },
-            { nombre: "Cyberpunk 2077", genero: "RPG", peso: "80 GB" },
-            { nombre: "Dakar Desert Rally", genero: "Carreras", peso: "50 GB" },
-            { nombre: "Daymare 1994 Sandcastle", genero: "Horror", peso: "40 GB" },
-            { nombre: "Dead Island 2", genero: "Acción", peso: "60 GB" },
-            { nombre: "Dead Rising Deluxe Remastered", genero: "Acción", peso: "55 GB" },
-            { nombre: "Dead Space Remake", genero: "Horror", peso: "65 GB" },
-            { nombre: "Demon Slayer Kimetsu no Yaiba", genero: "Acción", peso: "35 GB" },
-            { nombre: "Demon Slayer The Hinokami Chronicle", genero: "Lucha", peso: "40 GB" },
-            { nombre: "Demons Souls", genero: "RPG", peso: "65 GB" },
-            { nombre: "Destruction Allstars", genero: "Carreras", peso: "35 GB" },
-            { nombre: "Devil May Cry 5 Special Edition", genero: "Acción", peso: "50 GB" },
-            { nombre: "DIRT 5", genero: "Carreras", peso: "60 GB" },
-            { nombre: "Disciples Liberation", genero: "Estrategia/RPG", peso: "40 GB" },
-            { nombre: "Disgaea 6 Complete", genero: "RPG", peso: "30 GB" },
-            { nombre: "Disgaea 7 Vows of the Virtueless", genero: "RPG", peso: "35 GB" },
-            { nombre: "Disney Pixar Toy Story 2", genero: "Plataformas", peso: "20 GB" },
-            { nombre: "Dragon Age The Veilguard", genero: "RPG", peso: "100 GB" },
-            { nombre: "Dragon Ball Sparking Zero", genero: "Lucha", peso: "30 GB" },
-            { nombre: "Dragon Ball Z Kakarot", genero: "Acción/RPG", peso: "50 GB" },
-            { nombre: "Dragon Quest III HD-2D Remake", genero: "RPG", peso: "25 GB" },
-            { nombre: "Dragon's Dogma 2", genero: "RPG", peso: "95 GB" },
-            { nombre: "Dungeons Dragons Dark Alliance", genero: "Acción/RPG", peso: "45 GB" },
-            { nombre: "EA SPORTS WRC", genero: "Carreras", peso: "85 GB" },
-            { nombre: "EA Sports FC 25", genero: "Deportes", peso: "50 GB" },
-            { nombre: "Elden Ring", genero: "RPG", peso: "45 GB" },
-            { nombre: "Elex 2", genero: "RPG", peso: "60 GB" },
-            { nombre: "Empire of Ant", genero: "Estrategia", peso: "20 GB" },
-            { nombre: "Enotria The Last Song Deluxe Edition", genero: "Acción/RPG", peso: "40 GB" },
-            { nombre: "Ever Forward", genero: "Aventura", peso: "15 GB" },
-            { nombre: "Everspace 2", genero: "Acción", peso: "35 GB" },
-            { nombre: "EVOTINCTION", genero: "Acción", peso: "25 GB" },
-            { nombre: "Farming Simulator 22", genero: "Simulación", peso: "80 GB" },
-            { nombre: "Fatal Frame Maiden of Black Water", genero: "Horror", peso: "30 GB" },
-            { nombre: "Fishing North Atlantic Enhanced Edition", genero: "Simulación", peso: "25 GB" },
-            { nombre: "Five Nights at Freddys Security Breach", genero: "Horror", peso: "40 GB" },
-            { nombre: "Fobia St Dinfna Hotel", genero: "Horror", peso: "35 GB" },
-            { nombre: "Fort Solis", genero: "Aventura", peso: "20 GB" },
-            { nombre: "GameDEC", genero: "RPG", peso: "20 GB" },
-            { nombre: "Gangs of Sherwood", genero: "Acción", peso: "35 GB" },
-            { nombre: "Gear Club Unlimited 2", genero: "Carreras", peso: "40 GB" },
-            { nombre: "Ghost of Tsushima", genero: "Acción/Aventura", peso: "65 GB" },
-            { nombre: "Ghostwire Tokyo", genero: "Horror/Aventura", peso: "60 GB" },
-            { nombre: "Goat Simulator 3", genero: "Simulación", peso: "30 GB" },
-            { nombre: "God of Rock", genero: "Música", peso: "15 GB" },
-            { nombre: "God of War Ragnarök", genero: "Acción/Aventura", peso: "84 GB" },
-            { nombre: "Granblu Fantasy Relink", genero: "Acción/RPG", peso: "50 GB" },
-            { nombre: "Grand Theft Auto III Definitive Edition", genero: "Acción", peso: "50 GB" },
-            { nombre: "Grand Theft Auto San Andreas", genero: "Acción", peso: "50 GB" },
-            { nombre: "Grand Theft Auto Vice City Definitive Edition", genero: "Acción", peso: "50 GB" },
-            { nombre: "Greed Fall", genero: "RPG", peso: "60 GB" },
-            { nombre: "GTA V", genero: "Acción", peso: "85 GB" },
-            { nombre: "Guilty Gear Strive", genero: "Lucha", peso: "40 GB" },
-            { nombre: "Gundam Breaker 4", genero: "Acción", peso: "35 GB" },
-            { nombre: "High on Life", genero: "Aventura", peso: "25 GB" },
-            { nombre: "Hogwarts Legacy", genero: "RPG", peso: "85 GB" },
-            { nombre: "Hunting Simulator 2", genero: "Simulación", peso: "40 GB" },
-            { nombre: "Ikai", genero: "Aventura", peso: "15 GB" },
-            { nombre: "Immortals of Aveum", genero: "Acción/RPG", peso: "70 GB" },
-            { nombre: "Iron Harvest", genero: "Estrategia", peso: "50 GB" },
-            { nombre: "It Takes Two", genero: "Aventura", peso: "45 GB" },
-            { nombre: "Jack Holmes Master Of Puppets", genero: "Aventura", peso: "20 GB" },
-            { nombre: "Jitsu Squad", genero: "Acción", peso: "25 GB" },
-            { nombre: "Jumanji The Videogame", genero: "Aventura", peso: "30 GB" },
-            { nombre: "Jurassic Park Classic Games Collection", genero: "Acción", peso: "35 GB" },
-            { nombre: "Jusant", genero: "Aventura", peso: "25 GB" },
-            { nombre: "Kena PS5", genero: "Aventura", peso: "20 GB" },
-            { nombre: "LEGO 2K DRIVE", genero: "Carreras", peso: "60 GB" },
-            { nombre: "Lego Horizon Adventures", genero: "Aventura", peso: "50 GB" },
-            { nombre: "LEGO Star Wars The Skywalker Saga", genero: "Aventura", peso: "70 GB" },
-            { nombre: "Lies of P", genero: "RPG", peso: "50 GB" },
-            { nombre: "Life is Strange Double Exposure", genero: "Aventura", peso: "35 GB" },
-            { nombre: "Life is Strange True Colors", genero: "Aventura", peso: "30 GB" },
-            { nombre: "Little Big Adventure Twinsens Quest", genero: "Aventura", peso: "30 GB" },
-            { nombre: "Little Nightmares 2", genero: "Horror/Aventura", peso: "15 GB" },
-            { nombre: "Lollipop Chainsaw rePOP", genero: "Acción", peso: "30 GB" },
-            { nombre: "Lords of the Fallen", genero: "RPG", peso: "80 GB" },
-            { nombre: "MADiSON", genero: "Horror", peso: "20 GB" },
-            { nombre: "Martha is Dead", genero: "Horror", peso: "25 GB" },
-            { nombre: "Marvel's Guardians of the Galaxy", genero: "Acción/Aventura", peso: "65 GB" },
-            { nombre: "Mechwarrior 5 Mercenaries", genero: "Acción", peso: "50 GB" },
-            { nombre: "Medium", genero: "Horror/Aventura", peso: "30 GB" },
-            { nombre: "Miasma Chronicles", genero: "Estrategia/RPG", peso: "35 GB" },
-            { nombre: "Minecraft", genero: "Sandbox", peso: "20 GB" },
-            { nombre: "Minecraft Legends", genero: "Estrategia", peso: "25 GB" },
-            { nombre: "Monster Energy Supercross 6", genero: "Carreras", peso: "35 GB" },
-            { nombre: "Monster Truck Championship", genero: "Carreras", peso: "30 GB" },
-            { nombre: "Mortal Kombat 1", genero: "Lucha", peso: "55 GB" },
-            { nombre: "Mortal Kombat 11 Ultimate", genero: "Lucha", peso: "50 GB" },
-            { nombre: "Mortal Shell Enhanced Edition", genero: "RPG", peso: "30 GB" },
-            { nombre: "MotoGP 24", genero: "Carreras", peso: "40 GB" },
-            { nombre: "Need for Speed Unbound", genero: "Carreras", peso: "70 GB" },
-            { nombre: "Nickelodeon Kart Racers 3 Slime Speedway", genero: "Carreras", peso: "25 GB" },
-            { nombre: "On The Road Truck Simulator", genero: "Simulación", peso: "35 GB" },
-            { nombre: "ONE PIECE ODYSSEY", genero: "RPG", peso: "50 GB" },
-            { nombre: "Outer Wilds", genero: "Aventura", peso: "20 GB" },
-            { nombre: "PAW Patrol Grand Prix", genero: "Carreras", peso: "20 GB" },
-            { nombre: "Persona 3 Reload", genero: "RPG", peso: "45 GB" },
-            { nombre: "Poppy Playtime Chapter 3", genero: "Horror", peso: "20 GB" },
-            { nombre: "Prince Of Persia The Lost Crown", genero: "Acción/Aventura", peso: "40 GB" },
-            { nombre: "Quake", genero: "Acción", peso: "60 GB" },
-            { nombre: "Redemption Reapers", genero: "Estrategia/RPG", peso: "30 GB" },
-            { nombre: "Remnant 2", genero: "Acción/RPG", peso: "60 GB" },
-            { nombre: "Resident Evil 2 Remake", genero: "Horror", peso: "50 GB" },
-            { nombre: "Resident Evil 3 Remake", genero: "Horror", peso: "45 GB" },
-            { nombre: "Resident Evil 4 Remake", genero: "Horror", peso: "58 GB" },
-            { nombre: "Resident Evil 7 Gold Edition", genero: "Horror", peso: "50 GB" },
-            { nombre: "Resident Evil Village Gold Edition", genero: "Horror", peso: "55 GB" },
-            { nombre: "Returnal", genero: "Acción", peso: "40 GB" },
-            { nombre: "RIDE 5", genero: "Carreras", peso: "50 GB" },
-            { nombre: "RISE of KONG", genero: "Acción", peso: "35 GB" },
-            { nombre: "RoboCop Rogue City", genero: "Acción", peso: "55 GB" },
-            { nombre: "Sackboy A Big Adventure", genero: "Plataformas", peso: "35 GB" },
-            { nombre: "Scars Above", genero: "Acción", peso: "30 GB" },
-            { nombre: "Shadow Warrior 3", genero: "Acción", peso: "45 GB" },
-            { nombre: "Sifu", genero: "Acción", peso: "25 GB" },
-            { nombre: "Silent Hill 2", genero: "Horror", peso: "50 GB" },
-            { nombre: "Silent Hill The Short Message", genero: "Horror", peso: "20 GB" },
-            { nombre: "Skautfold Into The Fray", genero: "Acción", peso: "30 GB" },
-            { nombre: "Sker Ritual", genero: "Horror", peso: "25 GB" },
-            { nombre: "Skyrim", genero: "RPG", peso: "60 GB" },
-            { nombre: "Slave Zero X", genero: "Acción", peso: "20 GB" },
-            { nombre: "Smalland Survive the Wilds", genero: "Aventura", peso: "30 GB" },
-            { nombre: "Sniper Ghost Warrior Contract 2", genero: "Acción", peso: "45 GB" },
-            { nombre: "Soulstice", genero: "Acción", peso: "35 GB" },
-            { nombre: "STAR WARS Jedi Fallen Order", genero: "Acción/Aventura", peso: "55 GB" },
-            { nombre: "Star Wars Outlaw", genero: "Acción/Aventura", peso: "65 GB" },
-            { nombre: "Stranger of Paradise Final Fantasy Origin", genero: "Acción/RPG", peso: "60 GB" },
-            { nombre: "Stray", genero: "Aventura", peso: "25 GB" },
-            { nombre: "Street Fighter 6", genero: "Lucha", peso: "45 GB" },
-            { nombre: "Subnautica Below Zero", genero: "Aventura", peso: "35 GB" },
-            { nombre: "Super Bomberman", genero: "Acción", peso: "20 GB" },
-            { nombre: "SWORD ART ONLINE Fractured Daydream", genero: "Acción/RPG", peso: "40 GB" },
-            { nombre: "SWORD ART ONLINE Last Recollection", genero: "Acción/RPG", peso: "45 GB" },
-            { nombre: "Syphon Filter", genero: "Acción", peso: "30 GB" },
-            { nombre: "Tales of Arise", genero: "RPG", peso: "50 GB" },
-            { nombre: "Tekken 8", genero: "Lucha", peso: "50 GB" },
-            { nombre: "Terminator Resistance Enhanced", genero: "Acción", peso: "45 GB" },
-            { nombre: "The Callisto Protocol", genero: "Horror", peso: "50 GB" },
-            { nombre: "The Chant", genero: "Horror", peso: "25 GB" },
-            { nombre: "The Crown Of Wu", genero: "Acción", peso: "35 GB" },
-            { nombre: "The Dark Pictures Anthology House of Ashes", genero: "Horror", peso: "55 GB" },
-            { nombre: "The Dark Pictures Anthology The Devil in Me", genero: "Horror", peso: "50 GB" },
-            { nombre: "The Eternal Cylinder", genero: "Aventura", peso: "20 GB" },
-            { nombre: "The Last Of Us Part 1", genero: "Acción/Aventura", peso: "79 GB" },
-            { nombre: "The Last of Us Part 2", genero: "Acción/Aventura", peso: "85 GB" },
-            { nombre: "The Last Stand Aftermath", genero: "Acción", peso: "25 GB" },
-            { nombre: "The Lord of the Rings Gollum", genero: "Aventura", peso: "40 GB" },
-            { nombre: "The Lord of the Rings Return to Moria", genero: "Aventura", peso: "35 GB" },
-            { nombre: "The Persistence", genero: "Horror", peso: "30 GB" },
-            { nombre: "The Riftbreaker", genero: "Acción", peso: "35 GB" },
-            { nombre: "The Smurfs Mission Vileaf", genero: "Plataformas", peso: "20 GB" },
-            { nombre: "Thymesia", genero: "Acción/RPG", peso: "25 GB" },
-            { nombre: "Tiny Tina's Wonderlands", genero: "RPG", peso: "60 GB" },
-            { nombre: "Tomb Raider 1-3 Remastered", genero: "Acción/Aventura", peso: "40 GB" },
-            { nombre: "TopSpin 2K25", genero: "Deportes", peso: "35 GB" },
-            { nombre: "Tormented Souls", genero: "Horror", peso: "20 GB" },
-            { nombre: "Transformers Earthspark Expedition", genero: "Acción", peso: "35 GB" },
-            { nombre: "Trek To Yomi", genero: "Acción", peso: "20 GB" },
-            { nombre: "Uncharted Legacy Of Thieves Collection", genero: "Acción/Aventura", peso: "70 GB" },
-            { nombre: "Undisputed", genero: "Deportes", peso: "45 GB" },
-            { nombre: "Until Dawn Remake", genero: "Horror", peso: "50 GB" },
-            { nombre: "Valkyrie Elysium", genero: "Acción/RPG", peso: "35 GB" },
-            { nombre: "Vampire The Masquerade Swansong", genero: "RPG", peso: "40 GB" },
-            { nombre: "Way of the Hunter", genero: "Simulación", peso: "35 GB" },
-            { nombre: "Werewolf The Apocalypse Earthblood", genero: "Acción/RPG", peso: "45 GB" },
-            { nombre: "Wo Long Fallen Dynasty", genero: "Acción/RPG", peso: "55 GB" },
-            { nombre: "WWW 2K24", genero: "Deportes", peso: "40 GB" },
-            { nombre: "XIII", genero: "Acción", peso: "30 GB" },
-            { nombre: "Yonder The Cloud Catcher Chronicles", genero: "Aventura", peso: "20 GB" },
-            // FALTANTES
-            { nombre: "The Caligula Effect Overdose", genero: "RPG", peso: "30 GB" },
-            { nombre: "Dead Cells", genero: "Acción", peso: "25 GB" },
-            { nombre: "The Caligula Effect 2", genero: "RPG", peso: "35 GB" },
-            { nombre: "A Quiet Place The Road Ahead", genero: "Horror/Aventura", peso: "40 GB" },
-            { nombre: "Disney Epic Mickey Rebrushed", genero: "Aventura", peso: "35 GB" },
-            { nombre: "Hot Wheels Monster Trucks", genero: "Carreras", peso: "30 GB" },
-            { nombre: "Morbid The Lords of Ire", genero: "RPG", peso: "40 GB" },
-            { nombre: "Pneumata", genero: "Horror", peso: "25 GB" },
-            { nombre: "WWE 2K24", genero: "Deportes", peso: "50 GB" },
-            { nombre: "Looney Tunes Wacky World of Sports", genero: "Deportes", peso: "20 GB" },
-            { nombre: "Cygni All Guns Blazing", genero: "Acción", peso: "20 GB" },
-            { nombre: "Sid Meiers Civilization VII", genero: "Estrategia", peso: "45 GB" },
-            { nombre: "The Precinct", genero: "Aventura", peso: "25 GB" },
-            { nombre: "Sonic Racing CrossWorlds", genero: "Carreras", peso: "30 GB" },
-            { nombre: "Rugrats Adventure in Gameland", genero: "Plataformas", peso: "20 GB" },
-            { nombre: "Daemon X Machina Titanic Scion", genero: "Acción", peso: "35 GB" },
-            { nombre: "Horizon Chase 2", genero: "Carreras", peso: "25 GB" },
-            { nombre: "Dragon Quest I and II HD 2D Remake", genero: "RPG", peso: "20 GB" },
-            { nombre: "Treasures of The Aegean", genero: "Aventura", peso: "15 GB" },
-            { nombre: "Vampire The Masquerade Bloodlines 2", genero: "RPG", peso: "60 GB" },
-            { nombre: "Ghost of Yotei", genero: "Acción/Aventura", peso: "70 GB" },
-            { nombre: "Demon Slayer Kimetsu no Yaiba The Hinokami Chronicles 2", genero: "Lucha", peso: "45 GB" },
-            { nombre: "Dreamcore", genero: "Horror", peso: "20 GB" },
-            { nombre: "One Night Stand", genero: "Aventura", peso: "15 GB" },
-            { nombre: "Elden Ring Nightreign", genero: "RPG", peso: "50 GB" },
-            { nombre: "Legacy of Kain Soul Reaver 1 & 2 Remastered", genero: "Acción/Aventura", peso: "55 GB" },
-            { nombre: "Hell Is Us", genero: "Acción", peso: "40 GB" },
-            { nombre: "Mafia The Old Country", genero: "Acción", peso: "70 GB" },
-            { nombre: "The Exit 9", genero: "Acción", peso: "30 GB" },
-            { nombre: "Forza Horizon 5", genero: "Carreras", peso: "100 GB" },
-            { nombre: "Mortal Kombat Legacy Kollection", genero: "Lucha", peso: "60 GB" },
-            { nombre: "Little Nightmares 3", genero: "Horror/Aventura", peso: "30 GB" },
-            { nombre: "S.T.A.L.K.E.R. 2 Heart of Chernobyl", genero: "Acción/Aventura", peso: "160 GB" },
-            { nombre: "The First Berserker Khazan", genero: "Acción", peso: "40 GB" },
-            { nombre: "Another Crab's Treasure", genero: "Aventura", peso: "25 GB" },
-            { nombre: "Split Fiction", genero: "Aventura", peso: "30 GB" },
-            { nombre: "WUCHANG Fallen Feathers", genero: "Acción/RPG", peso: "45 GB" },
-            { nombre: "MindsEye", genero: "Aventura", peso: "20 GB" },
-            { nombre: "The Elder Scrolls IV Oblivion Remastered", genero: "RPG", peso: "50 GB" },
-            { nombre: "Days Gone Remastered", genero: "Acción/Aventura", peso: "65 GB" },
-            { nombre: "The Binding of Isaac Repentance", genero: "Acción", peso: "20 GB" },
-            { nombre: "Clair Obscur Expedition 33", genero: "Acción/RPG", peso: "50 GB" },
-            { nombre: "Indiana Jones and The Great Circle", genero: "Aventura", peso: "120 GB" },
-            { nombre: "The Smurfs 2 The Prisoner of the Green Stone", genero: "Plataformas", peso: "25 GB" },
-            { nombre: "Sea of Stars", genero: "RPG", peso: "30 GB" },
-            { nombre: "The Light Brigade", genero: "Acción", peso: "20 GB" },
-            { nombre: "Smurfs Kart", genero: "Carreras", peso: "20 GB" },
-            { nombre: "Hellboy Web of Wyrd", genero: "Acción", peso: "35 GB" },
-            { nombre: "Asterix & Obelix Heroes", genero: "Aventura", peso: "30 GB" },
-            { nombre: "Dungeons 4", genero: "Estrategia", peso: "25 GB" },
-            { nombre: "The Witcher III Wild Hunt Complete Edition", genero: "RPG", peso: "90 GB" },
-            { nombre: "Potion Permit", genero: "Simulación", peso: "15 GB" },
-            { nombre: "Tiger Blade", genero: "Acción", peso: "20 GB" },
-            { nombre: "Cave Digger 2 Dig Harder", genero: "Simulación", peso: "20 GB" },
-            { nombre: "Witch Spring R", genero: "RPG", peso: "25 GB" },
-            { nombre: "We Love Katamari Reroll+ Royal Reverie", genero: "Acción", peso: "20 GB" },
-            { nombre: "Taiko no Tatsujin Rhythm Festival", genero: "Música", peso: "15 GB" },
-            { nombre: "Lost Epic", genero: "RPG", peso: "30 GB" },
-            { nombre: "KAGE Shadow of The Ninja", genero: "Acción", peso: "25 GB" },
-            { nombre: "Gori Cuddly Carnage", genero: "Acción", peso: "20 GB" },
-            { nombre: "Funko Fusion", genero: "Acción", peso: "30 GB" },
-            { nombre: "The House of the Dead Remake", genero: "Acción", peso: "35 GB" },
-            { nombre: "Enchanted Portals", genero: "Aventura", peso: "20 GB" },
-            { nombre: "Hitman World of Assassination", genero: "Acción", peso: "60 GB" },
-            { nombre: "HappyFunland", genero: "Aventura", peso: "15 GB" },
-            { nombre: "Infinity Strash DRAGON QUEST The Adventure of Dai", genero: "Acción/RPG", peso: "40 GB" },
-            { nombre: "Tactics Ogre Reborn", genero: "Estrategia/RPG", peso: "35 GB" },
-            { nombre: "Potionomics Masterwork Edition", genero: "Simulación", peso: "20 GB" },
-            { nombre: "Star Ocean The Divine Force", genero: "RPG", peso: "40 GB" },
-            { nombre: "Earth Defense Force World Brothers 2", genero: "Acción", peso: "25 GB" },
-            { nombre: "ArcRunner", genero: "Acción", peso: "20 GB" },
-            { nombre: "Poppy Playtime Chapter 2", genero: "Horror", peso: "15 GB" },
-            { nombre: "Poppy Playtime Chapter 1", genero: "Horror", peso: "15 GB" },
-            { nombre: "Park Beyond", genero: "Simulación", peso: "30 GB" },
-            { nombre: "BIOHAZARD RE 4", genero: "Horror", peso: "58 GB" },
-            { nombre: "Oddworld Soulstorm", genero: "Aventura", peso: "45 GB" },
-            { nombre: "Star Wars Outlaws", genero: "Acción/Aventura", peso: "65 GB" },
-            { nombre: "EA Sports FIFA 23", genero: "Deportes", peso: "50 GB" },
-            { nombre: "NHL 24", genero: "Deportes", peso: "45 GB" },
-            { nombre: "KLONOA Phantasy Reverie Series", genero: "Plataformas", peso: "25 GB" },
-            { nombre: "The Talos Principle 2", genero: "Aventura", peso: "35 GB" },
-            { nombre: "The Messenger", genero: "Plataformas", peso: "20 GB" },
-            { nombre: "Two Point Campus", genero: "Simulación", peso: "25 GB" },
-            { nombre: "PAC-Man World Re-PAC", genero: "Plataformas", peso: "20 GB" },
-            { nombre: "EA Sports PGA Tour", genero: "Deportes", peso: "40 GB" },
-            { nombre: "The Tale of Onogoro", genero: "Aventura", peso: "20 GB" },
-            { nombre: "Vertigo 2", genero: "Acción", peso: "30 GB" },
-            { nombre: "Flashback 2", genero: "Acción", peso: "25 GB" },
-            { nombre: "Born of Bread", genero: "Aventura", peso: "20 GB" },
-            { nombre: "Selfloss", genero: "Aventura", peso: "15 GB" },
-            { nombre: "Seeker My Shadow", genero: "Aventura", peso: "20 GB" },
-            { nombre: "Grand Theft Auto V", genero: "Acción", peso: "85 GB" },
-            { nombre: "Harvest Days", genero: "Simulación", peso: "20 GB" },
-            { nombre: "Nickelodeon All-Star Brawl 2", genero: "Lucha", peso: "25 GB" },
-            { nombre: "The Last Faith", genero: "Acción/RPG", peso: "30 GB" },
-            { nombre: "Teardown", genero: "Acción", peso: "25 GB" },
-            { nombre: "Spacebase Startopia", genero: "Simulación", peso: "30 GB" },
-            { nombre: "Matchbox Driving Adventures", genero: "Carreras", peso: "20 GB" },
-            { nombre: "Darkest Dungeon II", genero: "RPG", peso: "25 GB" },
-            { nombre: "Arcade Game Zone", genero: "Acción", peso: "15 GB" },
-            { nombre: "Taxi Life A City Driving Simulator", genero: "Simulación", peso: "30 GB" },
-            { nombre: "UFO Robot Grendizer The Feast of The Wolves", genero: "Acción", peso: "40 GB" },
-            { nombre: "Teenage Mutant Ninja Turtles Arcade Wrath of The Mutants", genero: "Acción", peso: "30 GB" },
-            { nombre: "Teenage Mutant Ninja Turtles Mutants Unleashed", genero: "Acción", peso: "35 GB" },
-            { nombre: "Clash Artifacts of Chaos", genero: "Acción", peso: "25 GB" },
-            { nombre: "The Invincible", genero: "Aventura", peso: "25 GB" },
-            { nombre: "Shame Legacy", genero: "Aventura", peso: "20 GB" },
-            { nombre: "SAND LAND", genero: "RPG", peso: "35 GB" },
-            { nombre: "Squirrel With A Gun", genero: "Acción", peso: "20 GB" },
-            { nombre: "GYLT", genero: "Aventura", peso: "20 GB" },
-            { nombre: "Deep Rock Galactic", genero: "Acción", peso: "40 GB" },
-            { nombre: "Crossfire Sierra Squad", genero: "Acción", peso: "35 GB" },
-            { nombre: "Horror Tales The Wine", genero: "Horror", peso: "20 GB" },
-            { nombre: "Arcade Spirits The New Challengers", genero: "Aventura", peso: "15 GB" },
-            { nombre: "Ovrdark", genero: "Horror", peso: "25 GB" },
-            { nombre: "Outcast A New Beginning", genero: "Aventura", peso: "35 GB" },
-            { nombre: "Evil West", genero: "Acción", peso: "40 GB" },
-            { nombre: "Empire of the Ants", genero: "Estrategia", peso: "25 GB" },
-            { nombre: "Grand Theft Auto The Trilogy The Definitive Edition", genero: "Acción", peso: "90 GB" },
-            { nombre: "Crash Bandicoot 4 Its About Time", genero: "Plataformas", peso: "35 GB" },
-            { nombre: "Star Wars Tales from the Galaxys Edge", genero: "Aventura", peso: "30 GB" },
-            { nombre: "The Walking Dead Saints & Sinners Chapter 2 Retribution", genero: "Horror/Aventura", peso: "40 GB" },
-            { nombre: "Transformer Galactic Trails", genero: "Acción", peso: "35 GB" },
-            { nombre: "Ed-0 Zombie Uprising", genero: "Acción", peso: "30 GB" },
-            { nombre: "The King of Fighters XV", genero: "Lucha", peso: "40 GB" },
-            { nombre: "Overpass 2", genero: "Carreras", peso: "35 GB" },
-            { nombre: "Last Days of Lazarus", genero: "Horror", peso: "25 GB" },
-            { nombre: "Still Wakes The Deep", genero: "Horror/Aventura", peso: "30 GB" },
-            { nombre: "MotoGP 23", genero: "Carreras", peso: "40 GB" },
-            { nombre: "Pacific Drive", genero: "Aventura", peso: "35 GB" },
-            { nombre: "Steelrising", genero: "RPG", peso: "50 GB" },
-            { nombre: "Afterimage", genero: "RPG", peso: "30 GB" },
-            { nombre: "Bramble The Mountain King", genero: "Horror/Aventura", peso: "35 GB" },
-            { nombre: "Tourist Bus Simulator", genero: "Simulación", peso: "25 GB" },
-            { nombre: "Dusk Diver 2", genero: "Acción/RPG", peso: "30 GB" },
-            { nombre: "Police Simulator Patrol Officers", genero: "Simulación", peso: "30 GB" },
-            { nombre: "The DioField Chronicle", genero: "Estrategia/RPG", peso: "25 GB" },
-            { nombre: "Medieval Dynasty", genero: "Simulación", peso: "35 GB" },
-            { nombre: "Hello Neighbor 2", genero: "Aventura", peso: "30 GB" },
-            { nombre: "Octopath Traveler 2", genero: "RPG", peso: "25 GB" }
-        ];
-
+        const juegos = [{"nombre": "41 Hours", "genero": "Aventura", "peso": "15 GB", "sinopsis": "Un thriller de aventura donde debes escapar en 41 horas antes de que sea demasiado tarde."}, {"nombre": "A Plague Tale Requiem", "genero": "Aventura", "peso": "45 GB", "sinopsis": "Contin\u00faa la \u00e9pica aventura de Amicia y Hugo en un mundo plagado de misterios oscuros."}, {"nombre": "A Quiet Place The Road Ahead", "genero": "Horror/Aventura", "peso": "40 GB", "sinopsis": "Horror de supervivencia en silencio basado en A Quiet Place."}, {"nombre": "Ad Infinitum", "genero": "Horror", "peso": "25 GB", "sinopsis": "Un juego de horror psicol\u00f3gico que explora los misterios de una mansi\u00f3n maldita."}, {"nombre": "AEW Fight Forever", "genero": "Lucha", "peso": "35 GB", "sinopsis": "Simulador de lucha libre profesional con los mejores luchadores de AEW."}, {"nombre": "Afterimage", "genero": "RPG", "peso": "30 GB", "sinopsis": "RPG de acci\u00f3n 2D con combate profundo."}, {"nombre": "Alan Wake Remastered", "genero": "Acci\u00f3n/Horror", "peso": "90 GB", "sinopsis": "Remasterizaci\u00f3n del cl\u00e1sico juego de horror donde debes luchar contra entidades oscuras."}, {"nombre": "Aliens Dark Descent", "genero": "Acci\u00f3n", "peso": "40 GB", "sinopsis": "Acci\u00f3n t\u00e1ctica en el universo de Aliens con combates intensos y estrategia."}, {"nombre": "Aliens Fireteam Elite", "genero": "Acci\u00f3n", "peso": "50 GB", "sinopsis": "Shooter cooperativo de tercera persona en el universo de Aliens."}, {"nombre": "Alone in the Dark", "genero": "Horror", "peso": "55 GB", "sinopsis": "Remake del cl\u00e1sico de horror que reinventa el g\u00e9nero con gr\u00e1ficos modernos."}, {"nombre": "Another Crab's Treasure", "genero": "Aventura", "peso": "25 GB", "sinopsis": "Aventura de plataformas como un cangrejo."}, {"nombre": "Apsulov End of Gods", "genero": "Acci\u00f3n/Horror", "peso": "30 GB", "sinopsis": "Aventura de horror n\u00f3rdico con mec\u00e1nicas de puzzle y combate."}, {"nombre": "Aragami 2", "genero": "Acci\u00f3n", "peso": "25 GB", "sinopsis": "Juego de sigilo donde controlas un ninja invisible en misiones furtivas."}, {"nombre": "Arcade Game Zone", "genero": "Acci\u00f3n", "peso": "15 GB", "sinopsis": "Colecci\u00f3n de juegos arcade cl\u00e1sicos."}, {"nombre": "Arcade Spirits The New Challengers", "genero": "Aventura", "peso": "15 GB", "sinopsis": "Aventura visual en un arcade."}, {"nombre": "ArcRunner", "genero": "Acci\u00f3n", "peso": "20 GB", "sinopsis": "Acci\u00f3n roguelike futurista."}, {"nombre": "ARK Survival Ascended", "genero": "Supervivencia", "peso": "120 GB", "sinopsis": "Remasterizaci\u00f3n del juego de supervivencia con dinosaurios en una isla hostil."}, {"nombre": "Assetto Corsa Competizione", "genero": "Carreras", "peso": "80 GB", "sinopsis": "Simulador de carreras realista con licencias oficiales de automovilismo."}, {"nombre": "Asterigos Curse of the Stars", "genero": "RPG", "peso": "35 GB", "sinopsis": "RPG de acci\u00f3n con combate en tiempo real y exploraci\u00f3n de un mundo m\u00e1gico."}, {"nombre": "Asterix & Obelix Heroes", "genero": "Aventura", "peso": "30 GB", "sinopsis": "Aventura basada en Asterix y Obelix."}, {"nombre": "Astria Ascending", "genero": "RPG", "peso": "20 GB", "sinopsis": "RPG t\u00e1ctico por turnos con arte pixelado hermoso y profunda narrativa."}, {"nombre": "Astro Bot", "genero": "Plataformas", "peso": "40 GB", "sinopsis": "Juego de plataformas exclusivo de PS5 que aprovecha el DualSense al m\u00e1ximo."}, {"nombre": "Avatar Frontiers of Pandora", "genero": "Acci\u00f3n/Aventura", "peso": "100 GB", "sinopsis": "Aventura \u00e9pica en el mundo de Pandora con gr\u00e1ficos impresionantes."}, {"nombre": "Avatar The Last Airbender", "genero": "Acci\u00f3n", "peso": "30 GB", "sinopsis": "Juego de acci\u00f3n basado en la serie animada de Avatar."}, {"nombre": "Away", "genero": "Aventura", "peso": "20 GB", "sinopsis": "Aventura narrativa donde controlas a una ardilla en un viaje \u00e9pico."}, {"nombre": "Balan Wonderworld", "genero": "Plataformas", "peso": "25 GB", "sinopsis": "Juego de plataformas colorido con mec\u00e1nicas de transformaci\u00f3n \u00fanicas."}, {"nombre": "Baldur's Gate 3", "genero": "RPG", "peso": "150 GB", "sinopsis": "RPG \u00e9pico basado en D&D con miles de horas de contenido y decisiones impactantes."}, {"nombre": "Banishers Ghosts of New Eden", "genero": "Acci\u00f3n/Aventura", "peso": "60 GB", "sinopsis": "Aventura de acci\u00f3n donde luchas contra fantasmas en un mundo sobrenatural."}, {"nombre": "Beyond a Steel Sky", "genero": "Aventura", "peso": "15 GB", "sinopsis": "Aventura punto y clic futurista con puzzles y narrativa envolvente."}, {"nombre": "BIOHAZARD RE 4", "genero": "Horror", "peso": "58 GB", "sinopsis": "Remake de Resident Evil 4 con gr\u00e1ficos modernos."}, {"nombre": "Black Myth Wukong", "genero": "Acci\u00f3n RPG", "peso": "118 GB", "sinopsis": "Acci\u00f3n \u00e9pica basada en la mitolog\u00eda china con combate intenso y hermosos gr\u00e1ficos."}, {"nombre": "BlackWind", "genero": "Acci\u00f3n", "peso": "20 GB", "sinopsis": "Juego de acci\u00f3n furtivo donde eres un ninja en misiones peligrosas."}, {"nombre": "Blasphemous II", "genero": "Acci\u00f3n", "peso": "30 GB", "sinopsis": "Metroidvania de acci\u00f3n con tem\u00e1tica religiosa oscura y desafiante."}, {"nombre": "Bleak Faith Forsaken", "genero": "RPG", "peso": "35 GB", "sinopsis": "RPG de acci\u00f3n tipo souls con exploraci\u00f3n de un mundo desolado."}, {"nombre": "Blood Bowl III", "genero": "Deportes", "peso": "45 GB", "sinopsis": "Juego de estrategia deportiva basado en el universo de Warhammer."}, {"nombre": "BloodRayne Betrayal", "genero": "Acci\u00f3n", "peso": "15 GB", "sinopsis": "Juego de acci\u00f3n vamp\u00edrico con combate fren\u00e9tico y gr\u00e1ficos estilizados."}, {"nombre": "Borderlands 3", "genero": "Acci\u00f3n/RPG", "peso": "95 GB", "sinopsis": "Shooter de rol con humor absurdo, miles de armas y acci\u00f3n fren\u00e9tica."}, {"nombre": "Born of Bread", "genero": "Aventura", "peso": "20 GB", "sinopsis": "Aventura RPG como un pan viviente."}, {"nombre": "Bramble The Mountain King", "genero": "Horror/Aventura", "peso": "35 GB", "sinopsis": "Horror atmosf\u00e9rico en un bosque misterios."}, {"nombre": "Call of the Sea", "genero": "Aventura", "peso": "15 GB", "sinopsis": "Aventura de misterio en una isla ex\u00f3tica con puzzles ambientales."}, {"nombre": "Cat Quest III", "genero": "RPG", "peso": "20 GB", "sinopsis": "RPG de acci\u00f3n adorable donde eres un gato aventurero en un mundo m\u00e1gico."}, {"nombre": "Cave Digger 2 Dig Harder", "genero": "Simulaci\u00f3n", "peso": "20 GB", "sinopsis": "Simulador de miner\u00eda."}, {"nombre": "Charon's Staircase", "genero": "Aventura", "peso": "10 GB", "sinopsis": "Aventura narrativa corta pero impactante sobre el viaje al m\u00e1s all\u00e1."}, {"nombre": "Chernobylite", "genero": "Horror/Aventura", "peso": "45 GB", "sinopsis": "Exploraci\u00f3n de horror en la zona de exclusi\u00f3n de Chern\u00f3bil."}, {"nombre": "Clair Obscur Expedition 33", "genero": "Acci\u00f3n/RPG", "peso": "50 GB", "sinopsis": "Acci\u00f3n RPG con combate en tiempo real."}, {"nombre": "Clash Artifacts of Chaos", "genero": "Acci\u00f3n", "peso": "25 GB", "sinopsis": "Acci\u00f3n de lucha roguelike."}, {"nombre": "Contra Operation Galuga", "genero": "Acci\u00f3n", "peso": "25 GB", "sinopsis": "Remake del cl\u00e1sico shooter de acci\u00f3n con gr\u00e1ficos modernos."}, {"nombre": "Control Ultimate Edition", "genero": "Acci\u00f3n", "peso": "90 GB", "sinopsis": "Acci\u00f3n sobrenatural en un edificio misterioso con poderes ps\u00edquicos."}, {"nombre": "Crash Bandicoot 4", "genero": "Plataformas", "peso": "35 GB", "sinopsis": "Plataformas cl\u00e1sicas con el marsupial favorito en nuevas aventuras."}, {"nombre": "Crash Bandicoot 4 Its About Time", "genero": "Plataformas", "peso": "35 GB", "sinopsis": "Plataformas con Crash Bandicoot."}, {"nombre": "Crimson Spires", "genero": "Acci\u00f3n", "peso": "20 GB", "sinopsis": "Juego de acci\u00f3n roguelike con torres que explorar y enemigos desafiantes."}, {"nombre": "Crossfire Sierra Squad", "genero": "Acci\u00f3n", "peso": "35 GB", "sinopsis": "Acci\u00f3n de shooter t\u00e1ctico."}, {"nombre": "Crown Wars The Black Prince", "genero": "Estrategia", "peso": "30 GB", "sinopsis": "Estrategia t\u00e1ctica basada en la historia medieval de Inglaterra."}, {"nombre": "Cyberpunk 2077", "genero": "RPG", "peso": "80 GB", "sinopsis": "RPG futurista en una megaciudad llena de intriga, crimen y tecnolog\u00eda."}, {"nombre": "Cygni All Guns Blazing", "genero": "Acci\u00f3n", "peso": "20 GB", "sinopsis": "Shooter de acci\u00f3n vertical fren\u00e9tico."}, {"nombre": "Daemon X Machina Titanic Scion", "genero": "Acci\u00f3n", "peso": "35 GB", "sinopsis": "Acci\u00f3n de mechas futurista."}, {"nombre": "Dakar Desert Rally", "genero": "Carreras", "peso": "50 GB", "sinopsis": "Simulador de rally del famoso Dakar con veh\u00edculos y terrenos variados."}, {"nombre": "Darkest Dungeon II", "genero": "RPG", "peso": "25 GB", "sinopsis": "RPG roguelike t\u00e1ctico con atm\u00f3sfera oscura."}, {"nombre": "Daymare 1994 Sandcastle", "genero": "Horror", "peso": "40 GB", "sinopsis": "Horror de supervivencia con puzzles y atm\u00f3sfera tensa."}, {"nombre": "Days Gone Remastered", "genero": "Acci\u00f3n/Aventura", "peso": "65 GB", "sinopsis": "Aventura de acci\u00f3n post-apocal\u00edptica con motocicletas."}, {"nombre": "Dead Cells", "genero": "Acci\u00f3n", "peso": "25 GB", "sinopsis": "Roguelike de acci\u00f3n 2D con combate r\u00e1pido."}, {"nombre": "Dead Island 2", "genero": "Acci\u00f3n", "peso": "60 GB", "sinopsis": "Acci\u00f3n contra zombies con combate visceral y cooperativo."}, {"nombre": "Dead Rising Deluxe Remastered", "genero": "Acci\u00f3n", "peso": "55 GB", "sinopsis": "Remasterizaci\u00f3n del cl\u00e1sico de acci\u00f3n contra zombies en un centro comercial."}, {"nombre": "Dead Space Remake", "genero": "Horror", "peso": "65 GB", "sinopsis": "Remake del cl\u00e1sico de horror espacial con gr\u00e1ficos impresionantes."}, {"nombre": "Deep Rock Galactic", "genero": "Acci\u00f3n", "peso": "40 GB", "sinopsis": "Acci\u00f3n cooperativa minando en asteroides."}, {"nombre": "Demon Slayer Kimetsu no Yaiba", "genero": "Acci\u00f3n", "peso": "35 GB", "sinopsis": "Juego de acci\u00f3n basado en el anime de Demon Slayer."}, {"nombre": "Demon Slayer Kimetsu no Yaiba The Hinokami Chronicles 2", "genero": "Lucha", "peso": "45 GB", "sinopsis": "Juego de lucha basado en Demon Slayer."}, {"nombre": "Demon Slayer The Hinokami Chronicle", "genero": "Lucha", "peso": "40 GB", "sinopsis": "Juego de lucha basado en Demon Slayer con personajes del anime."}, {"nombre": "Demons Souls", "genero": "RPG", "peso": "65 GB", "sinopsis": "Remake del cl\u00e1sico souls-like con gr\u00e1ficos de PS5."}, {"nombre": "Destruction Allstars", "genero": "Carreras", "peso": "35 GB", "sinopsis": "Juego de carreras de acci\u00f3n con destrucci\u00f3n ambiental."}, {"nombre": "Devil May Cry 5 Special Edition", "genero": "Acci\u00f3n", "peso": "50 GB", "sinopsis": "Acci\u00f3n fren\u00e9tica con combate estilizado y demonios \u00e9picos."}, {"nombre": "DIRT 5", "genero": "Carreras", "peso": "60 GB", "sinopsis": "Simulador de rally arcade con eventos variados en todo el mundo."}, {"nombre": "Disciples Liberation", "genero": "Estrategia/RPG", "peso": "40 GB", "sinopsis": "RPG t\u00e1ctico basado en el universo de Disciples."}, {"nombre": "Disgaea 6 Complete", "genero": "RPG", "peso": "30 GB", "sinopsis": "RPG t\u00e1ctico estrat\u00e9gico con humor absurdo y n\u00fameros enormes."}, {"nombre": "Disgaea 7 Vows of the Virtueless", "genero": "RPG", "peso": "35 GB", "sinopsis": "Continuaci\u00f3n del RPG t\u00e1ctico con nuevos personajes y mec\u00e1nicas."}, {"nombre": "Disney Epic Mickey Rebrushed", "genero": "Aventura", "peso": "35 GB", "sinopsis": "Aventura de plataformas con Mickey Mouse remasterizada."}, {"nombre": "Disney Pixar Toy Story 2", "genero": "Plataformas", "peso": "20 GB", "sinopsis": "Plataformas basado en la pel\u00edcula cl\u00e1sica de Toy Story."}, {"nombre": "Dragon Age The Veilguard", "genero": "RPG", "peso": "100 GB", "sinopsis": "RPG \u00e9pico en el universo de Dragon Age con nuevos h\u00e9roes."}, {"nombre": "Dragon Ball Sparking Zero", "genero": "Lucha", "peso": "30 GB", "sinopsis": "Juego de lucha basado en Dragon Ball con personajes ic\u00f3nicos."}, {"nombre": "Dragon Ball Z Kakarot", "genero": "Acci\u00f3n/RPG", "peso": "50 GB", "sinopsis": "RPG de acci\u00f3n que recorre toda la saga de Dragon Ball Z."}, {"nombre": "Dragon Quest I and II HD 2D Remake", "genero": "RPG", "peso": "20 GB", "sinopsis": "Remakes de los primeros Dragon Quest."}, {"nombre": "Dragon Quest III HD-2D Remake", "genero": "RPG", "peso": "25 GB", "sinopsis": "Remake del cl\u00e1sico RPG con gr\u00e1ficos HD-2D hermosos."}, {"nombre": "Dragon's Dogma 2", "genero": "RPG", "peso": "95 GB", "sinopsis": "RPG de acci\u00f3n con un mundo vasto y peones inteligentes."}, {"nombre": "Dreamcore", "genero": "Horror", "peso": "20 GB", "sinopsis": "Horror psicol\u00f3gico en un mundo on\u00edrico."}, {"nombre": "Dungeons 4", "genero": "Estrategia", "peso": "25 GB", "sinopsis": "Estrategia de construcci\u00f3n de mazmorras."}, {"nombre": "Dungeons Dragons Dark Alliance", "genero": "Acci\u00f3n/RPG", "peso": "45 GB", "sinopsis": "Acci\u00f3n RPG cooperativa basada en D&D."}, {"nombre": "Dusk Diver 2", "genero": "Acci\u00f3n/RPG", "peso": "30 GB", "sinopsis": "Acci\u00f3n RPG en Taipei."}, {"nombre": "EA Sports FC 25", "genero": "Deportes", "peso": "50 GB", "sinopsis": "Simulador de f\u00fatbol con equipos reales y modo Ultimate Team."}, {"nombre": "EA Sports FIFA 23", "genero": "Deportes", "peso": "50 GB", "sinopsis": "Simulador de f\u00fatbol con equipos reales."}, {"nombre": "EA Sports PGA Tour", "genero": "Deportes", "peso": "40 GB", "sinopsis": "Simulador de golf profesional."}, {"nombre": "EA SPORTS WRC", "genero": "Carreras", "peso": "85 GB", "sinopsis": "Simulador oficial de rally con licencias reales de pilotos."}, {"nombre": "Earth Defense Force World Brothers 2", "genero": "Acci\u00f3n", "peso": "25 GB", "sinopsis": "Acci\u00f3n cooperativa contra alien\u00edgenas."}, {"nombre": "Ed-0 Zombie Uprising", "genero": "Acci\u00f3n", "peso": "30 GB", "sinopsis": "Acci\u00f3n contra zombies en Jap\u00f3n antiguo."}, {"nombre": "Elden Ring", "genero": "RPG", "peso": "45 GB", "sinopsis": "RPG souls-like \u00e9pico con un mundo abierto para explorar."}, {"nombre": "Elden Ring Nightreign", "genero": "RPG", "peso": "50 GB", "sinopsis": "Expansi\u00f3n de Elden Ring con nuevas \u00e1reas."}, {"nombre": "Elex 2", "genero": "RPG", "peso": "60 GB", "sinopsis": "RPG de mundo abierto con facciones y libertad de juego."}, {"nombre": "Empire of Ant", "genero": "Estrategia", "peso": "20 GB", "sinopsis": "Estrategia en tiempo real donde controlas una colonia de hormigas."}, {"nombre": "Empire of the Ants", "genero": "Estrategia", "peso": "25 GB", "sinopsis": "Estrategia en tiempo real como una colonia de hormigas."}, {"nombre": "Enchanted Portals", "genero": "Aventura", "peso": "20 GB", "sinopsis": "Aventura de plataformas m\u00e1gica."}, {"nombre": "Enotria The Last Song Deluxe Edition", "genero": "Acci\u00f3n/RPG", "peso": "40 GB", "sinopsis": "Souls-like basado en la mitolog\u00eda italiana con acci\u00f3n \u00e9pica."}, {"nombre": "Ever Forward", "genero": "Aventura", "peso": "20 GB", "sinopsis": "Aventura de puzzles en un mundo surreal y hermoso."}, {"nombre": "Everspace 2", "genero": "Acci\u00f3n", "peso": "35 GB", "sinopsis": "Shooter espacial roguelike con exploraci\u00f3n y combate fren\u00e9tico."}, {"nombre": "Evil West", "genero": "Acci\u00f3n", "peso": "40 GB", "sinopsis": "Acci\u00f3n de vampiros en el Oeste."}, {"nombre": "EVOTINCTION", "genero": "Acci\u00f3n", "peso": "25 GB", "sinopsis": "Juego de acci\u00f3n con mec\u00e1nicas de evoluci\u00f3n \u00fanica."}, {"nombre": "Farming Simulator 22", "genero": "Simulaci\u00f3n", "peso": "80 GB", "sinopsis": "Simulador de agricultura realista con m\u00e1quinas y cultivos reales."}, {"nombre": "Fatal Frame Maiden of Black Water", "genero": "Horror", "peso": "30 GB", "sinopsis": "Horror de supervivencia donde usas una c\u00e1mara para luchar contra fantasmas."}, {"nombre": "Fishing North Atlantic Enhanced Edition", "genero": "Simulaci\u00f3n", "peso": "25 GB", "sinopsis": "Simulador de pesca realista en el Atl\u00e1ntico Norte."}, {"nombre": "Five Nights at Freddys Security Breach", "genero": "Horror", "peso": "40 GB", "sinopsis": "Horror de supervivencia en una pizzer\u00eda embrujada con animatr\u00f3nicos."}, {"nombre": "Flashback 2", "genero": "Acci\u00f3n", "peso": "25 GB", "sinopsis": "Acci\u00f3n de aventura remasterizada."}, {"nombre": "Fobia St Dinfna Hotel", "genero": "Horror", "peso": "35 GB", "sinopsis": "Horror de supervivencia en un hotel misterioso."}, {"nombre": "Fort Solis", "genero": "Aventura", "peso": "20 GB", "sinopsis": "Aventura narrativa en una base lunar abandonada."}, {"nombre": "Forza Horizon 5", "genero": "Carreras", "peso": "100 GB", "sinopsis": "Simulador de carreras abierto en M\u00e9xico con gr\u00e1ficos impresionantes."}, {"nombre": "Funko Fusion", "genero": "Acci\u00f3n", "peso": "30 GB", "sinopsis": "Acci\u00f3n cooperativa con personajes Funko."}, {"nombre": "GameDEC", "genero": "RPG", "peso": "20 GB", "sinopsis": "RPG cyberpunk donde eres un detective en un mundo digital."}, {"nombre": "Gangs of Sherwood", "genero": "Acci\u00f3n", "peso": "35 GB", "sinopsis": "Acci\u00f3n cooperativa basada en la leyenda de Robin Hood."}, {"nombre": "Gear Club Unlimited 2", "genero": "Carreras", "peso": "40 GB", "sinopsis": "Simulador de carreras casual con personalizaci\u00f3n de veh\u00edculos."}, {"nombre": "Ghost of Tsushima", "genero": "Acci\u00f3n/Aventura", "peso": "65 GB", "sinopsis": "Aventura de acci\u00f3n \u00e9pica en la antigua Jap\u00f3n durante la invasi\u00f3n mongola."}, {"nombre": "Ghost of Yotei", "genero": "Acci\u00f3n/Aventura", "peso": "70 GB", "sinopsis": "Aventura de acci\u00f3n samur\u00e1i en el Jap\u00f3n antiguo."}, {"nombre": "Ghostwire Tokyo", "genero": "Horror/Aventura", "peso": "60 GB", "sinopsis": "Horror sobrenatural en Tokio con combate espiritual."}, {"nombre": "Goat Simulator 3", "genero": "Simulaci\u00f3n", "peso": "30 GB", "sinopsis": "Simulador absurdo donde eres una cabra causando caos."}, {"nombre": "God of Rock", "genero": "M\u00fasica", "peso": "15 GB", "sinopsis": "Juego de ritmo basado en God of War con m\u00fasica \u00e9pica."}, {"nombre": "God of War Ragnar\u00f6k", "genero": "Acci\u00f3n/Aventura", "peso": "84 GB", "sinopsis": "Conclusi\u00f3n \u00e9pica de la saga de God of War con Kratos y Atreus."}, {"nombre": "Gori Cuddly Carnage", "genero": "Acci\u00f3n", "peso": "20 GB", "sinopsis": "Acci\u00f3n absurda y violenta."}, {"nombre": "Granblu Fantasy Relink", "genero": "Acci\u00f3n/RPG", "peso": "50 GB", "sinopsis": "Acci\u00f3n RPG basada en el juego m\u00f3vil Granblu Fantasy."}, {"nombre": "Grand Theft Auto III Definitive Edition", "genero": "Acci\u00f3n", "peso": "50 GB", "sinopsis": "Remasterizaci\u00f3n del cl\u00e1sico GTA III con gr\u00e1ficos mejorados."}, {"nombre": "Grand Theft Auto San Andreas", "genero": "Acci\u00f3n", "peso": "50 GB", "sinopsis": "Remasterizaci\u00f3n de GTA San Andreas con gr\u00e1ficos modernos."}, {"nombre": "Grand Theft Auto The Trilogy The Definitive Edition", "genero": "Acci\u00f3n", "peso": "90 GB", "sinopsis": "Colecci\u00f3n remasterizada de tres cl\u00e1sicos GTA."}, {"nombre": "Grand Theft Auto V", "genero": "Acci\u00f3n", "peso": "85 GB", "sinopsis": "Juego de acci\u00f3n abierto con tres protagonistas."}, {"nombre": "Grand Theft Auto Vice City Definitive Edition", "genero": "Acci\u00f3n", "peso": "50 GB", "sinopsis": "Remasterizaci\u00f3n de GTA Vice City con tem\u00e1tica de los 80s."}, {"nombre": "Greed Fall", "genero": "RPG", "peso": "60 GB", "sinopsis": "RPG de acci\u00f3n en un mundo colonial con magia y pol\u00edtica."}, {"nombre": "GTA V", "genero": "Acci\u00f3n", "peso": "85 GB", "sinopsis": "Juego de acci\u00f3n abierto \u00e9pico con tres protagonistas en Los Santos."}, {"nombre": "Guilty Gear Strive", "genero": "Lucha", "peso": "40 GB", "sinopsis": "Juego de lucha 2D con mec\u00e1nicas \u00fanicas y personajes coloridos."}, {"nombre": "Gundam Breaker 4", "genero": "Acci\u00f3n", "peso": "35 GB", "sinopsis": "Acci\u00f3n basada en Gundam con construcci\u00f3n y personalizaci\u00f3n de robots."}, {"nombre": "GYLT", "genero": "Aventura", "peso": "20 GB", "sinopsis": "Aventura de horror infantil."}, {"nombre": "HappyFunland", "genero": "Aventura", "peso": "15 GB", "sinopsis": "Aventura en un parque tem\u00e1tico misterioso."}, {"nombre": "Harvest Days", "genero": "Simulaci\u00f3n", "peso": "20 GB", "sinopsis": "Simulador de agricultura relajante."}, {"nombre": "Hell Is Us", "genero": "Acci\u00f3n", "peso": "40 GB", "sinopsis": "Acci\u00f3n de combate en un mundo post-apocal\u00edptico."}, {"nombre": "Hellboy Web of Wyrd", "genero": "Acci\u00f3n", "peso": "35 GB", "sinopsis": "Acci\u00f3n basada en Hellboy."}, {"nombre": "Hello Neighbor 2", "genero": "Aventura", "peso": "30 GB", "sinopsis": "Aventura de misterio en un vecindario."}, {"nombre": "High on Life", "genero": "Aventura", "peso": "25 GB", "sinopsis": "Aventura de acci\u00f3n c\u00f3mica con humor absurdo."}, {"nombre": "Hitman World of Assassination", "genero": "Acci\u00f3n", "peso": "60 GB", "sinopsis": "Acci\u00f3n de sigilo como un asesino profesional."}, {"nombre": "Hogwarts Legacy", "genero": "RPG", "peso": "85 GB", "sinopsis": "RPG de acci\u00f3n en el universo de Harry Potter como estudiante de Hogwarts."}, {"nombre": "Horizon Chase 2", "genero": "Carreras", "peso": "25 GB", "sinopsis": "Carreras arcade retro con gr\u00e1ficos coloridos."}, {"nombre": "Horror Tales The Wine", "genero": "Horror", "peso": "20 GB", "sinopsis": "Horror en una bodega misterios."}, {"nombre": "Hot Wheels Monster Trucks", "genero": "Carreras", "peso": "30 GB", "sinopsis": "Carreras arcade con camiones monstruo."}, {"nombre": "Hunting Simulator 2", "genero": "Simulaci\u00f3n", "peso": "40 GB", "sinopsis": "Simulador realista de caza con animales y armas aut\u00e9nticas."}, {"nombre": "Ikai", "genero": "Aventura", "peso": "15 GB", "sinopsis": "Aventura de horror japon\u00e9s con mec\u00e1nicas de posesi\u00f3n."}, {"nombre": "Immortals of Aveum", "genero": "Acci\u00f3n/RPG", "peso": "70 GB", "sinopsis": "Acci\u00f3n RPG con magia y combate fren\u00e9tico."}, {"nombre": "Indiana Jones and The Great Circle", "genero": "Aventura", "peso": "120 GB", "sinopsis": "Aventura \u00e9pica como Indiana Jones en busca de artefactos."}, {"nombre": "Infinity Strash DRAGON QUEST The Adventure of Dai", "genero": "Acci\u00f3n/RPG", "peso": "40 GB", "sinopsis": "Acci\u00f3n RPG basada en Dragon Quest."}, {"nombre": "Iron Harvest", "genero": "Estrategia", "peso": "50 GB", "sinopsis": "Estrategia en tiempo real con mechas en un mundo alternativo."}, {"nombre": "It Takes Two", "genero": "Aventura", "peso": "45 GB", "sinopsis": "Aventura cooperativa sobre una pareja que debe trabajar junta."}, {"nombre": "Jack Holmes Master Of Puppets", "genero": "Aventura", "peso": "20 GB", "sinopsis": "Aventura de misterio donde eres un detective de cr\u00edmenes."}, {"nombre": "Jitsu Squad", "genero": "Acci\u00f3n", "peso": "25 GB", "sinopsis": "Acci\u00f3n de lucha con artes marciales y combate en equipo."}, {"nombre": "Jumanji The Videogame", "genero": "Aventura", "peso": "30 GB", "sinopsis": "Aventura basada en la pel\u00edcula Jumanji con exploraci\u00f3n y puzzles."}, {"nombre": "Jurassic Park Classic Games Collection", "genero": "Acci\u00f3n", "peso": "35 GB", "sinopsis": "Colecci\u00f3n de cl\u00e1sicos juegos de Jurassic Park remasterizados."}, {"nombre": "Jusant", "genero": "Aventura", "peso": "25 GB", "sinopsis": "Aventura de escalada en un mundo vertical hermoso."}, {"nombre": "KAGE Shadow of The Ninja", "genero": "Acci\u00f3n", "peso": "25 GB", "sinopsis": "Acci\u00f3n de ninja remasterizada."}, {"nombre": "Kena PS5", "genero": "Aventura", "peso": "20 GB", "sinopsis": "Aventura de acci\u00f3n con arte hermoso y criaturas adorables."}, {"nombre": "KLONOA Phantasy Reverie Series", "genero": "Plataformas", "peso": "25 GB", "sinopsis": "Plataformas cl\u00e1sicas remasterizadas."}, {"nombre": "Last Days of Lazarus", "genero": "Horror", "peso": "25 GB", "sinopsis": "Horror de supervivencia en una isla."}, {"nombre": "Legacy of Kain Soul Reaver 1 & 2 Remastered", "genero": "Acci\u00f3n/Aventura", "peso": "55 GB", "sinopsis": "Remasterizaci\u00f3n de los cl\u00e1sicos Legacy of Kain."}, {"nombre": "LEGO 2K DRIVE", "genero": "Carreras", "peso": "60 GB", "sinopsis": "Juego de carreras LEGO con construcci\u00f3n de veh\u00edculos."}, {"nombre": "Lego Horizon Adventures", "genero": "Aventura", "peso": "50 GB", "sinopsis": "Aventura LEGO basada en Horizon con humor y construcci\u00f3n."}, {"nombre": "LEGO Star Wars The Skywalker Saga", "genero": "Aventura", "peso": "70 GB", "sinopsis": "Aventura LEGO que cubre todas las pel\u00edculas de Star Wars."}, {"nombre": "Lies of P", "genero": "RPG", "peso": "50 GB", "sinopsis": "Souls-like basado en Pinocho con acci\u00f3n y narrativa oscura."}, {"nombre": "Life is Strange Double Exposure", "genero": "Aventura", "peso": "35 GB", "sinopsis": "Aventura narrativa con poderes de viajes en el tiempo."}, {"nombre": "Life is Strange True Colors", "genero": "Aventura", "peso": "30 GB", "sinopsis": "Aventura narrativa donde controlas emociones de otros."}, {"nombre": "Little Big Adventure Twinsens Quest", "genero": "Aventura", "peso": "30 GB", "sinopsis": "Aventura cl\u00e1sica remasterizada con exploraci\u00f3n y puzzles."}, {"nombre": "Little Nightmares 2", "genero": "Horror/Aventura", "peso": "15 GB", "sinopsis": "Horror atmosf\u00e9rico donde eres un ni\u00f1o en un mundo oscuro."}, {"nombre": "Little Nightmares 3", "genero": "Horror/Aventura", "peso": "30 GB", "sinopsis": "Horror atmosf\u00e9rico continuando la saga."}, {"nombre": "Lollipop Chainsaw rePOP", "genero": "Acci\u00f3n", "peso": "30 GB", "sinopsis": "Acci\u00f3n absurda contra zombies con una cheerleader como protagonista."}, {"nombre": "Looney Tunes Wacky World of Sports", "genero": "Deportes", "peso": "20 GB", "sinopsis": "Deportes arcade con personajes de Looney Tunes."}, {"nombre": "Lords of the Fallen", "genero": "RPG", "peso": "80 GB", "sinopsis": "Souls-like con dos mundos para explorar y combate desafiante."}, {"nombre": "Lost Epic", "genero": "RPG", "peso": "30 GB", "sinopsis": "RPG de acci\u00f3n con combate profundo."}, {"nombre": "MADiSON", "genero": "Horror", "peso": "20 GB", "sinopsis": "Horror de supervivencia con fotograf\u00eda como mec\u00e1nica principal."}, {"nombre": "Mafia The Old Country", "genero": "Acci\u00f3n", "peso": "70 GB", "sinopsis": "Acci\u00f3n de crimen organizado en la Sicilia antigua."}, {"nombre": "Martha is Dead", "genero": "Horror", "peso": "25 GB", "sinopsis": "Horror psicol\u00f3gico en la Italia de la Segunda Guerra Mundial."}, {"nombre": "Marvel's Guardians of the Galaxy", "genero": "Acci\u00f3n/Aventura", "peso": "65 GB", "sinopsis": "Aventura de acci\u00f3n basada en los Guardianes de la Galaxia."}, {"nombre": "Matchbox Driving Adventures", "genero": "Carreras", "peso": "20 GB", "sinopsis": "Carreras arcade con veh\u00edculos Matchbox."}, {"nombre": "Mechwarrior 5 Mercenaries", "genero": "Acci\u00f3n", "peso": "50 GB", "sinopsis": "Acci\u00f3n de mechas en un universo de ciencia ficci\u00f3n."}, {"nombre": "Medieval Dynasty", "genero": "Simulaci\u00f3n", "peso": "35 GB", "sinopsis": "Simulador de construcci\u00f3n de aldea medieval."}, {"nombre": "Medium", "genero": "Horror/Aventura", "peso": "30 GB", "sinopsis": "Horror psicol\u00f3gico donde ves dos mundos simult\u00e1neamente."}, {"nombre": "Miasma Chronicles", "genero": "Estrategia/RPG", "peso": "35 GB", "sinopsis": "Estrategia t\u00e1ctica en un mundo post-apocal\u00edptico."}, {"nombre": "MindsEye", "genero": "Aventura", "peso": "20 GB", "sinopsis": "Aventura de puzzles en un mundo mental."}, {"nombre": "Minecraft", "genero": "Sandbox", "peso": "20 GB", "sinopsis": "Juego de construcci\u00f3n y supervivencia en un mundo de bloques."}, {"nombre": "Minecraft Legends", "genero": "Estrategia", "peso": "25 GB", "sinopsis": "Estrategia en tiempo real en el universo de Minecraft."}, {"nombre": "Monster Energy Supercross 6", "genero": "Carreras", "peso": "35 GB", "sinopsis": "Simulador de motocross con trucos y competiciones."}, {"nombre": "Monster Truck Championship", "genero": "Carreras", "peso": "30 GB", "sinopsis": "Carreras de camiones monstruo con acci\u00f3n y destrucci\u00f3n."}, {"nombre": "Morbid The Lords of Ire", "genero": "RPG", "peso": "40 GB", "sinopsis": "RPG de acci\u00f3n oscuro con tem\u00e1tica g\u00f3tica."}, {"nombre": "Mortal Kombat 1", "genero": "Lucha", "peso": "55 GB", "sinopsis": "Juego de lucha brutal con personajes ic\u00f3nicos y fatalities \u00e9picas."}, {"nombre": "Mortal Kombat 11 Ultimate", "genero": "Lucha", "peso": "50 GB", "sinopsis": "Juego de lucha con combate profundo y personajes variados."}, {"nombre": "Mortal Kombat Legacy Kollection", "genero": "Lucha", "peso": "60 GB", "sinopsis": "Colecci\u00f3n de juegos cl\u00e1sicos de Mortal Kombat."}, {"nombre": "Mortal Shell Enhanced Edition", "genero": "RPG", "peso": "30 GB", "sinopsis": "Souls-like con mec\u00e1nica de posesi\u00f3n de cuerpos."}, {"nombre": "MotoGP 23", "genero": "Carreras", "peso": "40 GB", "sinopsis": "Simulador de MotoGP."}, {"nombre": "MotoGP 24", "genero": "Carreras", "peso": "40 GB", "sinopsis": "Simulador oficial de MotoGP con pilotos y motos reales."}, {"nombre": "Need for Speed Unbound", "genero": "Carreras", "peso": "70 GB", "sinopsis": "Carreras callejeras con estilo y personalizaci\u00f3n."}, {"nombre": "NHL 24", "genero": "Deportes", "peso": "45 GB", "sinopsis": "Simulador de hockey sobre hielo."}, {"nombre": "Nickelodeon All-Star Brawl 2", "genero": "Lucha", "peso": "25 GB", "sinopsis": "Juego de lucha con personajes de Nickelodeon."}, {"nombre": "Nickelodeon Kart Racers 3 Slime Speedway", "genero": "Carreras", "peso": "25 GB", "sinopsis": "Carreras arcade con personajes de Nickelodeon."}, {"nombre": "Octopath Traveler 2", "genero": "RPG", "peso": "25 GB", "sinopsis": "RPG cl\u00e1sico por turnos con arte hermoso."}, {"nombre": "Oddworld Soulstorm", "genero": "Aventura", "peso": "45 GB", "sinopsis": "Aventura de plataformas en el universo de Oddworld."}, {"nombre": "On The Road Truck Simulator", "genero": "Simulaci\u00f3n", "peso": "35 GB", "sinopsis": "Simulador de conducci\u00f3n de camiones en rutas realistas."}, {"nombre": "One Night Stand", "genero": "Aventura", "peso": "15 GB", "sinopsis": "Aventura narrativa sobre un encuentro casual."}, {"nombre": "ONE PIECE ODYSSEY", "genero": "RPG", "peso": "50 GB", "sinopsis": "RPG basado en One Piece con la tripulaci\u00f3n de Luffy."}, {"nombre": "Outcast A New Beginning", "genero": "Aventura", "peso": "35 GB", "sinopsis": "Aventura de acci\u00f3n en un mundo alien\u00edgena."}, {"nombre": "Outer Wilds", "genero": "Aventura", "peso": "20 GB", "sinopsis": "Aventura de exploraci\u00f3n espacial con misterios c\u00f3smicos."}, {"nombre": "Overpass 2", "genero": "Carreras", "peso": "35 GB", "sinopsis": "Carreras de rally extremo."}, {"nombre": "Ovrdark", "genero": "Horror", "peso": "25 GB", "sinopsis": "Horror de realidad virtual."}, {"nombre": "PAC-Man World Re-PAC", "genero": "Plataformas", "peso": "20 GB", "sinopsis": "Plataformas con Pac-Man remasterizadas."}, {"nombre": "Pacific Drive", "genero": "Aventura", "peso": "35 GB", "sinopsis": "Aventura de conducci\u00f3n en una zona an\u00f3mala."}, {"nombre": "Park Beyond", "genero": "Simulaci\u00f3n", "peso": "30 GB", "sinopsis": "Simulador de construcci\u00f3n de parques tem\u00e1ticos."}, {"nombre": "PAW Patrol Grand Prix", "genero": "Carreras", "peso": "20 GB", "sinopsis": "Carreras arcade basadas en PAW Patrol."}, {"nombre": "Persona 3 Reload", "genero": "RPG", "peso": "45 GB", "sinopsis": "Remake del cl\u00e1sico RPG con vida de estudiante y combate."}, {"nombre": "Pneumata", "genero": "Horror", "peso": "25 GB", "sinopsis": "Horror psicol\u00f3gico en una iglesia abandonada."}, {"nombre": "Police Simulator Patrol Officers", "genero": "Simulaci\u00f3n", "peso": "30 GB", "sinopsis": "Simulador de patrullaje policial."}, {"nombre": "Poppy Playtime Chapter 1", "genero": "Horror", "peso": "15 GB", "sinopsis": "Horror de supervivencia en una f\u00e1brica."}, {"nombre": "Poppy Playtime Chapter 2", "genero": "Horror", "peso": "15 GB", "sinopsis": "Horror en una f\u00e1brica de juguetes."}, {"nombre": "Poppy Playtime Chapter 3", "genero": "Horror", "peso": "20 GB", "sinopsis": "Horror de supervivencia en una f\u00e1brica de juguetes misterios."}, {"nombre": "Potion Permit", "genero": "Simulaci\u00f3n", "peso": "15 GB", "sinopsis": "Simulador de alquimia en un pueblo medieval."}, {"nombre": "Potionomics Masterwork Edition", "genero": "Simulaci\u00f3n", "peso": "20 GB", "sinopsis": "Simulador de tienda de pociones."}, {"nombre": "Prince Of Persia The Lost Crown", "genero": "Acci\u00f3n/Aventura", "peso": "40 GB", "sinopsis": "Aventura de acci\u00f3n con parkour y combate en un palacio persa."}, {"nombre": "Quake", "genero": "Acci\u00f3n", "peso": "60 GB", "sinopsis": "Remake del cl\u00e1sico shooter con gr\u00e1ficos modernos."}, {"nombre": "Redemption Reapers", "genero": "Estrategia/RPG", "peso": "30 GB", "sinopsis": "Estrategia t\u00e1ctica con narrativa profunda."}, {"nombre": "Remnant 2", "genero": "Acci\u00f3n/RPG", "peso": "60 GB", "sinopsis": "Shooter RPG cooperativo con mundos procedurales."}, {"nombre": "Resident Evil 2 Remake", "genero": "Horror", "peso": "50 GB", "sinopsis": "Remake del cl\u00e1sico horror con c\u00e1mara sobre el hombro."}, {"nombre": "Resident Evil 3 Remake", "genero": "Horror", "peso": "45 GB", "sinopsis": "Remake del horror cl\u00e1sico con Jill Valentine."}, {"nombre": "Resident Evil 4 Remake", "genero": "Horror", "peso": "58 GB", "sinopsis": "Remake del aclamado horror con acci\u00f3n y atm\u00f3sfera."}, {"nombre": "Resident Evil 7 Gold Edition", "genero": "Horror", "peso": "50 GB", "sinopsis": "Horror de primera persona en una casa misterios."}, {"nombre": "Resident Evil Village Gold Edition", "genero": "Horror", "peso": "55 GB", "sinopsis": "Horror de acci\u00f3n en un pueblo europeo con criaturas aterradoras."}, {"nombre": "Returnal", "genero": "Acci\u00f3n", "peso": "40 GB", "sinopsis": "Shooter roguelike con loops temporales y acci\u00f3n fren\u00e9tica."}, {"nombre": "RIDE 5", "genero": "Carreras", "peso": "50 GB", "sinopsis": "Simulador de motociclismo con motos y circuitos reales."}, {"nombre": "RISE of KONG", "genero": "Acci\u00f3n", "peso": "35 GB", "sinopsis": "Acci\u00f3n basada en King Kong con plataformas y combate."}, {"nombre": "RoboCop Rogue City", "genero": "Acci\u00f3n", "peso": "55 GB", "sinopsis": "Acci\u00f3n de tercera persona basada en RoboCop."}, {"nombre": "Rugrats Adventure in Gameland", "genero": "Plataformas", "peso": "20 GB", "sinopsis": "Plataformas basadas en Rugrats."}, {"nombre": "S.T.A.L.K.E.R. 2 Heart of Chernobyl", "genero": "Acci\u00f3n/Aventura", "peso": "160 GB", "sinopsis": "Aventura de acci\u00f3n en la zona de exclusi\u00f3n de Chern\u00f3bil."}, {"nombre": "Sackboy A Big Adventure", "genero": "Plataformas", "peso": "35 GB", "sinopsis": "Plataformas cooperativas con el adorable Sackboy."}, {"nombre": "SAND LAND", "genero": "RPG", "peso": "35 GB", "sinopsis": "RPG de acci\u00f3n basado en Dragon Ball."}, {"nombre": "Scars Above", "genero": "Acci\u00f3n", "peso": "30 GB", "sinopsis": "Acci\u00f3n de ciencia ficci\u00f3n con combate y exploraci\u00f3n."}, {"nombre": "Sea of Stars", "genero": "RPG", "peso": "30 GB", "sinopsis": "RPG cl\u00e1sico por turnos con arte hermoso."}, {"nombre": "Seeker My Shadow", "genero": "Aventura", "peso": "20 GB", "sinopsis": "Aventura de puzzle y exploraci\u00f3n."}, {"nombre": "Selfloss", "genero": "Aventura", "peso": "15 GB", "sinopsis": "Aventura narrativa sobre p\u00e9rdida."}, {"nombre": "Shadow Warrior 3", "genero": "Acci\u00f3n", "peso": "45 GB", "sinopsis": "Shooter de acci\u00f3n fren\u00e9tico con armas creativas."}, {"nombre": "Shame Legacy", "genero": "Aventura", "peso": "20 GB", "sinopsis": "Aventura de misterio y secretos."}, {"nombre": "Sid Meiers Civilization VII", "genero": "Estrategia", "peso": "45 GB", "sinopsis": "Estrategia por turnos construyendo civilizaciones."}, {"nombre": "Sifu", "genero": "Acci\u00f3n", "peso": "25 GB", "sinopsis": "Acci\u00f3n de artes marciales con mec\u00e1nica de envejecimiento."}, {"nombre": "Silent Hill 2", "genero": "Horror", "peso": "50 GB", "sinopsis": "Remake del cl\u00e1sico horror psicol\u00f3gico en una ciudad misterios."}, {"nombre": "Silent Hill The Short Message", "genero": "Horror", "peso": "20 GB", "sinopsis": "Horror psicol\u00f3gico corto pero impactante."}, {"nombre": "Skautfold Into The Fray", "genero": "Acci\u00f3n", "peso": "30 GB", "sinopsis": "Acci\u00f3n de combate t\u00e1ctico en un mundo medieval."}, {"nombre": "Sker Ritual", "genero": "Horror", "peso": "25 GB", "sinopsis": "Horror de supervivencia en un hotel embrujado."}, {"nombre": "Skyrim", "genero": "RPG", "peso": "60 GB", "sinopsis": "RPG \u00e9pico de fantas\u00eda en el reino de Skyrim."}, {"nombre": "Slave Zero X", "genero": "Acci\u00f3n", "peso": "20 GB", "sinopsis": "Acci\u00f3n de mechas con combate r\u00e1pido."}, {"nombre": "Smalland Survive the Wilds", "genero": "Aventura", "peso": "30 GB", "sinopsis": "Aventura de supervivencia en un mundo donde eres peque\u00f1o."}, {"nombre": "Smurfs Kart", "genero": "Carreras", "peso": "20 GB", "sinopsis": "Carreras arcade con Los Pitufos."}, {"nombre": "Sniper Ghost Warrior Contract 2", "genero": "Acci\u00f3n", "peso": "45 GB", "sinopsis": "Acci\u00f3n de sigilo como francotirador profesional."}, {"nombre": "Sonic Racing CrossWorlds", "genero": "Carreras", "peso": "30 GB", "sinopsis": "Carreras arcade con personajes de Sonic."}, {"nombre": "Soulstice", "genero": "Acci\u00f3n", "peso": "35 GB", "sinopsis": "Acci\u00f3n de combate con dos personajes conectados."}, {"nombre": "Spacebase Startopia", "genero": "Simulaci\u00f3n", "peso": "30 GB", "sinopsis": "Simulador de construcci\u00f3n de estaci\u00f3n espacial."}, {"nombre": "Split Fiction", "genero": "Aventura", "peso": "30 GB", "sinopsis": "Aventura cooperativa con mec\u00e1nica de divisi\u00f3n de pantalla."}, {"nombre": "Squirrel With A Gun", "genero": "Acci\u00f3n", "peso": "20 GB", "sinopsis": "Acci\u00f3n absurda como una ardilla armada."}, {"nombre": "Star Ocean The Divine Force", "genero": "RPG", "peso": "40 GB", "sinopsis": "RPG de acci\u00f3n en el espacio."}, {"nombre": "STAR WARS Jedi Fallen Order", "genero": "Acci\u00f3n/Aventura", "peso": "55 GB", "sinopsis": "Aventura de acci\u00f3n como un Jedi sobreviviente."}, {"nombre": "Star Wars Outlaw", "genero": "Acci\u00f3n/Aventura", "peso": "65 GB", "sinopsis": "Aventura de acci\u00f3n como una contrabandista en el universo Star Wars."}, {"nombre": "Star Wars Outlaws", "genero": "Acci\u00f3n/Aventura", "peso": "65 GB", "sinopsis": "Aventura de acci\u00f3n como una contrabandista en Star Wars."}, {"nombre": "Star Wars Tales from the Galaxys Edge", "genero": "Aventura", "peso": "30 GB", "sinopsis": "Aventura en el universo Star Wars."}, {"nombre": "Steelrising", "genero": "RPG", "peso": "50 GB", "sinopsis": "RPG de acci\u00f3n con robots en la Par\u00eds revolucionaria."}, {"nombre": "Still Wakes The Deep", "genero": "Horror/Aventura", "peso": "30 GB", "sinopsis": "Horror en una plataforma petrol\u00edfera."}, {"nombre": "Stranger of Paradise Final Fantasy Origin", "genero": "Acci\u00f3n/RPG", "peso": "60 GB", "sinopsis": "Acci\u00f3n RPG basada en Final Fantasy con combate intenso."}, {"nombre": "Stray", "genero": "Aventura", "peso": "25 GB", "sinopsis": "Aventura narrativa donde eres un gato robot en una ciudad futurista."}, {"nombre": "Street Fighter 6", "genero": "Lucha", "peso": "45 GB", "sinopsis": "Juego de lucha con personajes ic\u00f3nicos y mec\u00e1nicas profundas."}, {"nombre": "Subnautica Below Zero", "genero": "Aventura", "peso": "35 GB", "sinopsis": "Aventura de exploraci\u00f3n submarina en un planeta helado."}, {"nombre": "Super Bomberman", "genero": "Acci\u00f3n", "peso": "20 GB", "sinopsis": "Acci\u00f3n arcade cl\u00e1sica de Bomberman remasterizada."}, {"nombre": "SWORD ART ONLINE Fractured Daydream", "genero": "Acci\u00f3n/RPG", "peso": "40 GB", "sinopsis": "Acci\u00f3n RPG basada en Sword Art Online."}, {"nombre": "SWORD ART ONLINE Last Recollection", "genero": "Acci\u00f3n/RPG", "peso": "45 GB", "sinopsis": "RPG de acci\u00f3n en el universo de Sword Art Online."}, {"nombre": "Syphon Filter", "genero": "Acci\u00f3n", "peso": "30 GB", "sinopsis": "Acci\u00f3n de esp\u00eda con sigilo y combate."}, {"nombre": "Tactics Ogre Reborn", "genero": "Estrategia/RPG", "peso": "35 GB", "sinopsis": "Estrategia t\u00e1ctica cl\u00e1sica remasterizada."}, {"nombre": "Taiko no Tatsujin Rhythm Festival", "genero": "M\u00fasica", "peso": "15 GB", "sinopsis": "Juego de ritmo basado en tambores japoneses."}, {"nombre": "Tales of Arise", "genero": "RPG", "peso": "50 GB", "sinopsis": "RPG de acci\u00f3n con combate en tiempo real y narrativa \u00e9pica."}, {"nombre": "Taxi Life A City Driving Simulator", "genero": "Simulaci\u00f3n", "peso": "30 GB", "sinopsis": "Simulador de conducci\u00f3n de taxi."}, {"nombre": "Teardown", "genero": "Acci\u00f3n", "peso": "25 GB", "sinopsis": "Acci\u00f3n de puzzle donde destruyes estructuras."}, {"nombre": "Teenage Mutant Ninja Turtles Arcade Wrath of The Mutants", "genero": "Acci\u00f3n", "peso": "30 GB", "sinopsis": "Acci\u00f3n arcade basada en TMNT."}, {"nombre": "Teenage Mutant Ninja Turtles Mutants Unleashed", "genero": "Acci\u00f3n", "peso": "35 GB", "sinopsis": "Acci\u00f3n basada en Tortugas Ninja."}, {"nombre": "Tekken 8", "genero": "Lucha", "peso": "50 GB", "sinopsis": "Juego de lucha 3D con personajes variados y combate profundo."}, {"nombre": "Terminator Resistance Enhanced", "genero": "Acci\u00f3n", "peso": "45 GB", "sinopsis": "Acci\u00f3n de shooter basada en Terminator."}, {"nombre": "The Binding of Isaac Repentance", "genero": "Acci\u00f3n", "peso": "20 GB", "sinopsis": "Roguelike de acci\u00f3n con tem\u00e1tica religiosa oscura."}, {"nombre": "The Caligula Effect 2", "genero": "RPG", "peso": "35 GB", "sinopsis": "Continuaci\u00f3n del RPG Caligula con nuevos personajes."}, {"nombre": "The Caligula Effect Overdose", "genero": "RPG", "peso": "30 GB", "sinopsis": "RPG basado en la serie Caligula con m\u00fasica y narrativa."}, {"nombre": "The Callisto Protocol", "genero": "Horror", "peso": "50 GB", "sinopsis": "Horror de acci\u00f3n en una prisi\u00f3n espacial."}, {"nombre": "The Chant", "genero": "Horror", "peso": "25 GB", "sinopsis": "Horror sobrenatural en un retiro espiritual."}, {"nombre": "The Crown Of Wu", "genero": "Acci\u00f3n", "peso": "35 GB", "sinopsis": "Acci\u00f3n de artes marciales en la antigua China."}, {"nombre": "The Dark Pictures Anthology House of Ashes", "genero": "Horror", "peso": "55 GB", "sinopsis": "Horror narrativo en ruinas antiguas."}, {"nombre": "The Dark Pictures Anthology The Devil in Me", "genero": "Horror", "peso": "50 GB", "sinopsis": "Horror narrativo con decisiones que importan."}, {"nombre": "The DioField Chronicle", "genero": "Estrategia/RPG", "peso": "25 GB", "sinopsis": "Estrategia t\u00e1ctica en un mundo medieval."}, {"nombre": "The Elder Scrolls IV Oblivion Remastered", "genero": "RPG", "peso": "50 GB", "sinopsis": "Remasterizaci\u00f3n del cl\u00e1sico RPG Oblivion."}, {"nombre": "The Eternal Cylinder", "genero": "Aventura", "peso": "20 GB", "sinopsis": "Aventura surrealista huyendo de un cilindro gigante."}, {"nombre": "The Exit 9", "genero": "Acci\u00f3n", "peso": "30 GB", "sinopsis": "Acci\u00f3n de supervivencia en una carretera misteriosa."}, {"nombre": "The First Berserker Khazan", "genero": "Acci\u00f3n", "peso": "40 GB", "sinopsis": "Acci\u00f3n souls-like basada en Berserk."}, {"nombre": "The House of the Dead Remake", "genero": "Acci\u00f3n", "peso": "35 GB", "sinopsis": "Remake del cl\u00e1sico shooter de zombies."}, {"nombre": "The Invincible", "genero": "Aventura", "peso": "25 GB", "sinopsis": "Aventura narrativa basada en The Invincible."}, {"nombre": "The King of Fighters XV", "genero": "Lucha", "peso": "40 GB", "sinopsis": "Juego de lucha cl\u00e1sico con personajes variados."}, {"nombre": "The Last Faith", "genero": "Acci\u00f3n/RPG", "peso": "30 GB", "sinopsis": "Metroidvania de acci\u00f3n oscuro."}, {"nombre": "The Last Of Us Part 1", "genero": "Acci\u00f3n/Aventura", "peso": "79 GB", "sinopsis": "Remake del cl\u00e1sico juego de supervivencia post-apocal\u00edptica."}, {"nombre": "The Last of Us Part 2", "genero": "Acci\u00f3n/Aventura", "peso": "85 GB", "sinopsis": "Continuaci\u00f3n \u00e9pica del viaje de Ellie en un mundo infectado."}, {"nombre": "The Last Stand Aftermath", "genero": "Acci\u00f3n", "peso": "25 GB", "sinopsis": "Acci\u00f3n roguelike contra zombies."}, {"nombre": "The Light Brigade", "genero": "Acci\u00f3n", "peso": "20 GB", "sinopsis": "Acci\u00f3n roguelike en un mundo de ciencia ficci\u00f3n."}, {"nombre": "The Lord of the Rings Gollum", "genero": "Aventura", "peso": "40 GB", "sinopsis": "Aventura de sigilo como Gollum en la Tierra Media."}, {"nombre": "The Lord of the Rings Return to Moria", "genero": "Aventura", "peso": "35 GB", "sinopsis": "Aventura de exploraci\u00f3n en las minas de Moria."}, {"nombre": "The Messenger", "genero": "Plataformas", "peso": "20 GB", "sinopsis": "Plataformas con mec\u00e1nica de cambio de \u00e9poca."}, {"nombre": "The Persistence", "genero": "Horror", "peso": "30 GB", "sinopsis": "Horror de supervivencia en una nave espacial."}, {"nombre": "The Precinct", "genero": "Aventura", "peso": "25 GB", "sinopsis": "Aventura de detective en una precintorpolicial."}, {"nombre": "The Riftbreaker", "genero": "Acci\u00f3n", "peso": "35 GB", "sinopsis": "Acci\u00f3n de defensa de torres en un planeta alien\u00edgena."}, {"nombre": "The Smurfs 2 The Prisoner of the Green Stone", "genero": "Plataformas", "peso": "25 GB", "sinopsis": "Plataformas basadas en Los Pitufos."}, {"nombre": "The Smurfs Mission Vileaf", "genero": "Plataformas", "peso": "20 GB", "sinopsis": "Plataformas basadas en Los Pitufos."}, {"nombre": "The Tale of Onogoro", "genero": "Aventura", "peso": "20 GB", "sinopsis": "Aventura de exploraci\u00f3n en una isla misteriosa."}, {"nombre": "The Talos Principle 2", "genero": "Aventura", "peso": "35 GB", "sinopsis": "Aventura de puzzles en un mundo filos\u00f3fico."}, {"nombre": "The Walking Dead Saints & Sinners Chapter 2 Retribution", "genero": "Horror/Aventura", "peso": "40 GB", "sinopsis": "Horror de supervivencia en el universo de The Walking Dead."}, {"nombre": "The Witcher III Wild Hunt Complete Edition", "genero": "RPG", "peso": "90 GB", "sinopsis": "RPG \u00e9pico como Geralt en un mundo lleno de misterios."}, {"nombre": "Thymesia", "genero": "Acci\u00f3n/RPG", "peso": "25 GB", "sinopsis": "Souls-like con mec\u00e1nica de alquimia."}, {"nombre": "Tiger Blade", "genero": "Acci\u00f3n", "peso": "20 GB", "sinopsis": "Acci\u00f3n de artes marciales."}, {"nombre": "Tiny Tina's Wonderlands", "genero": "RPG", "peso": "60 GB", "sinopsis": "RPG de acci\u00f3n basado en Borderlands con tem\u00e1tica de fantas\u00eda."}, {"nombre": "Tomb Raider 1-3 Remastered", "genero": "Acci\u00f3n/Aventura", "peso": "40 GB", "sinopsis": "Remasterizaci\u00f3n de los cl\u00e1sicos Tomb Raider."}, {"nombre": "TopSpin 2K25", "genero": "Deportes", "peso": "35 GB", "sinopsis": "Simulador de tenis con jugadores reales."}, {"nombre": "Tormented Souls", "genero": "Horror", "peso": "20 GB", "sinopsis": "Horror cl\u00e1sico con puzzles y atm\u00f3sfera."}, {"nombre": "Tourist Bus Simulator", "genero": "Simulaci\u00f3n", "peso": "25 GB", "sinopsis": "Simulador de conducci\u00f3n de autob\u00fas tur\u00edstico."}, {"nombre": "Transformer Galactic Trails", "genero": "Acci\u00f3n", "peso": "35 GB", "sinopsis": "Acci\u00f3n basada en Transformers."}, {"nombre": "Transformers Earthspark Expedition", "genero": "Acci\u00f3n", "peso": "35 GB", "sinopsis": "Acci\u00f3n basada en Transformers."}, {"nombre": "Treasures of The Aegean", "genero": "Aventura", "peso": "15 GB", "sinopsis": "Aventura de buceo en la antigua Grecia."}, {"nombre": "Trek To Yomi", "genero": "Acci\u00f3n", "peso": "20 GB", "sinopsis": "Acci\u00f3n samur\u00e1i en blanco y negro con estilo cinematogr\u00e1fico."}, {"nombre": "Two Point Campus", "genero": "Simulaci\u00f3n", "peso": "25 GB", "sinopsis": "Simulador de construcci\u00f3n de universidades."}, {"nombre": "UFO Robot Grendizer The Feast of The Wolves", "genero": "Acci\u00f3n", "peso": "40 GB", "sinopsis": "Acci\u00f3n de robots basada en Grendizer."}, {"nombre": "Uncharted Legacy Of Thieves Collection", "genero": "Acci\u00f3n/Aventura", "peso": "70 GB", "sinopsis": "Colecci\u00f3n remasterizada de aventuras de Nathan Drake."}, {"nombre": "Undisputed", "genero": "Deportes", "peso": "45 GB", "sinopsis": "Simulador de boxeo realista."}, {"nombre": "Until Dawn Remake", "genero": "Horror", "peso": "50 GB", "sinopsis": "Remake del horror narrativo con decisiones que importan."}, {"nombre": "Valkyrie Elysium", "genero": "Acci\u00f3n/RPG", "peso": "35 GB", "sinopsis": "Acci\u00f3n RPG basada en la mitolog\u00eda n\u00f3rdica."}, {"nombre": "Vampire The Masquerade Bloodlines 2", "genero": "RPG", "peso": "60 GB", "sinopsis": "RPG narrativo en el universo de Vampire The Masquerade."}, {"nombre": "Vampire The Masquerade Swansong", "genero": "RPG", "peso": "40 GB", "sinopsis": "RPG narrativo en el universo de Vampire The Masquerade."}, {"nombre": "Vertigo 2", "genero": "Acci\u00f3n", "peso": "30 GB", "sinopsis": "Acci\u00f3n de puzzle en primera persona."}, {"nombre": "Way of the Hunter", "genero": "Simulaci\u00f3n", "peso": "35 GB", "sinopsis": "Simulador de caza realista en entornos naturales."}, {"nombre": "We Love Katamari Reroll+ Royal Reverie", "genero": "Acci\u00f3n", "peso": "20 GB", "sinopsis": "Acci\u00f3n absurda rodando una bola pegajosa."}, {"nombre": "Werewolf The Apocalypse Earthblood", "genero": "Acci\u00f3n/RPG", "peso": "45 GB", "sinopsis": "Acci\u00f3n RPG como un hombre lobo en el universo de Werewolf."}, {"nombre": "Witch Spring R", "genero": "RPG", "peso": "25 GB", "sinopsis": "RPG de acci\u00f3n como una bruja."}, {"nombre": "Wo Long Fallen Dynasty", "genero": "Acci\u00f3n/RPG", "peso": "55 GB", "sinopsis": "Souls-like basado en la historia china con magia."}, {"nombre": "WUCHANG Fallen Feathers", "genero": "Acci\u00f3n/RPG", "peso": "45 GB", "sinopsis": "Acci\u00f3n RPG basada en la mitolog\u00eda china."}, {"nombre": "WWE 2K24", "genero": "Deportes", "peso": "50 GB", "sinopsis": "Simulador de lucha libre con luchadores reales."}, {"nombre": "WWW 2K24", "genero": "Deportes", "peso": "40 GB", "sinopsis": "Simulador de lucha libre profesional."}, {"nombre": "XIII", "genero": "Acci\u00f3n", "peso": "30 GB", "sinopsis": "Acci\u00f3n de esp\u00eda con estilo c\u00f3mico."}, {"nombre": "Yonder The Cloud Catcher Chronicles", "genero": "Aventura", "peso": "20 GB", "sinopsis": "Aventura relajante de exploraci\u00f3n sin combate."}];
         let searchTerm = '';
 
         function renderGames() {
-            const grid = document.getElementById('games-grid');
+            const tbody = document.getElementById('games-tbody');
             const noResults = document.getElementById('no-results');
-            grid.innerHTML = '';
+            tbody.innerHTML = '';
 
-            let filteredGames = games;
+            let filteredGames = juegos;
 
             if (searchTerm) {
                 filteredGames = filteredGames.filter(g => 
@@ -675,36 +269,29 @@
 
             if (filteredGames.length === 0) {
                 noResults.style.display = 'block';
+                document.getElementById('games-table').style.display = 'none';
                 return;
             }
 
             noResults.style.display = 'none';
+            document.getElementById('games-table').style.display = 'table';
 
             filteredGames.forEach(game => {
-                const card = document.createElement('div');
-                card.className = 'game-card';
-                const imageUrl = gameCovers[game.nombre] || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="150" height="200"%3E%3Crect fill="%230f1f3a" width="150" height="200"/%3E%3Ctext x="50%" y="50%" text-anchor="middle" dy=".3em" fill="%23a78bfa" font-size="12"%3E' + game.nombre.substring(0, 15) + '%3C/text%3E%3C/svg%3E';
-                
-                card.innerHTML = `
-                    <div class="game-image">
-                        <img src="${imageUrl}" alt="${game.nombre}" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22150%22 height=%22200%22%3E%3Crect fill=%22%230f1f3a%22 width=%22150%22 height=%22200%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22%23a78bfa%22 font-size=%2212%22%3E${game.nombre.substring(0, 15)}%3C/text%3E%3C/svg%3E'">
-                    </div>
-                    <div class="game-info">
-                        <div class="game-title">${game.nombre}</div>
-                        <div class="game-details">
-                            <div class="game-genre">📁 ${game.genero}</div>
-                            <div class="game-size">💾 ${game.peso}</div>
-                        </div>
-                    </div>
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="game-name">${game.nombre}</td>
+                    <td class="game-genre">${game.genero}</td>
+                    <td class="game-size">${game.peso}</td>
+                    <td class="game-sinopsis">${game.sinopsis}</td>
                 `;
-                grid.appendChild(card);
+                tbody.appendChild(row);
             });
 
             updateStats();
         }
 
         function updateStats() {
-            const total = games.length;
+            const total = juegos.length;
             document.getElementById('total-games').textContent = total;
         }
 
